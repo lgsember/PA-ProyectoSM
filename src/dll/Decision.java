@@ -30,6 +30,9 @@ public class Decision {
 	Validador valid = new Validador();
 	
 	public boolean Decision1(Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
+		String nombre = "Makoto";
+		String img = "Mako";
+		String pregunta = "Lo siento. ¿Estás bien?";
 		String[] respuesta = {"Todo bien, no te preocupes.", "¡Ten más cuidado!"};
 		
 		 int opcion = JOptionPane.showOptionDialog(
@@ -46,12 +49,12 @@ public class Decision {
 		        if (opcion == 0) {
 		        	jupiter.modAfinidad(true);
 		        	valid.arModStatus(jugador, jupiter, enemigo);
-		        	JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\nAh, me alegro. Estaba distraída…", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("makogd.png")));
+		        	//JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\nAh, me alegro. Estaba distraída…", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("makogd.png")));
 		        	return true;
 		        } else {
 		        	jupiter.modAfinidad(false);
 		        	valid.arModStatus(jugador, jupiter, enemigo);
-		        	JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\nTampoco es para tanto. Estaba distraída…", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("makobd.png")));
+		        	//JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\nTampoco es para tanto. Estaba distraída…", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("makobd.png")));
 		        	return false;
 		        }
 

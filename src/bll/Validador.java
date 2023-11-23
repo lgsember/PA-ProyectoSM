@@ -364,7 +364,7 @@ public class Validador {
 	
 	public boolean arBajaJugador(Jugador jugador) {
 		try {	
-	        String sql = "DELETE FROM afinidad WHERE jugador = ?";
+	        String sql = "DELETE FROM status WHERE jugador = ?";
 	        fetch = cnx.prepareStatement(sql);
 	        fetch.setInt(1, jugador.getId());
 	        fetch.executeUpdate();

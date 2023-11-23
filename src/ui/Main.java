@@ -18,16 +18,14 @@ import java.util.LinkedList;
 public class Main {
 
 	public static void main(String[] args) {
-		String player = "", senshi = "", fighter = "";
-		int opcion = 10;
+		
 
+		/*
+		 * int opcion = 10;
 		Connection cnx = new Conexion().conectar();
 		Validador valid = new Validador();
 
-		Historia sm = new Historia("Sailor Moon: Battle for Earth");
-		Decision ds = new Decision(true);
-		Batalla bt = new Batalla(0);
-		Jugador jugador = new Jugador(0, null, null, 0, 1);
+		Jugador jugador = new Jugador(0, "", "", 0, 1);
 
 		Personaje earth = new Personaje(null, "Earth", "¡Semillas de la Tierra, germinen!", "¡Ventiscas espirales de la Tierra!");
 		Aliado moon = new Aliado("Usagi", "Moon", "Tiara Lunar ¡Acción!", "¡Curación Lunar, Acción!", 3);
@@ -40,62 +38,25 @@ public class Main {
 		Enemigo eris = new Enemigo("Sailor Eris", "Eris", "Estacas cristalinas de Eris, ¡congelad!", "¡Aurora Resplandeciente de Eris!", 2, "Enemigo", 0);
 		Enemigo humea = new Enemigo("Sailor Haumea", "Humea", "¡Ciclón perforador de Humea, devastación!", "¡Proyección astral de Humea!", 3, "Enemigo", 0);
 		Enemigo dmoon = new Enemigo("Nyx", "Dark Moon", "Eclipse anular, ¡manifiéstate!", "¡Ondas sonoras de la Luna Oscura!", 4, "Enemigo", 0);
+		*/
 		
-		String []menu= {"Nueva Partida" , "Cargar Partida", "Cambiar Nombre", "Borrar Usuario", "Modo Batalla", "Salir"};
-		String []confirmacion= {"Si", "No"};
+		//que condicion con trycatch para que no se cerre la pantalla 
+		MenuPrincipal menu = new MenuPrincipal();
+		menu.run();
 		
-		do {
+		
+		
 
-			opcion = JOptionPane.showOptionDialog(null, "Iniciar", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, menu, menu[0]);
-			
-			if (opcion==0) {
-				valid.arNuevoJugador(jugador);
-				valid.arAltaStatus(jugador);
-				
-			} else if (opcion==1) {
-				cargarJugador(jugador, valid);
-				cargarAfinidad(jugador, valid, mercury, mars, jupiter, venus);
-				cargarEnemigos(jugador, valid, ceres, eris, humea, dmoon);
+	}
 	
-			} else if (opcion==2) {
-				cargarJugador(jugador, valid);			
-				if (valid.arNombre(jugador)) {
-					JOptionPane.showMessageDialog(null, "Nombre actualizado!");
-				}
-				opcion = 10;
-				
-			} else if (opcion==3) {
-				cargarJugador(jugador, valid);	
-				opcion = JOptionPane.showOptionDialog(null, "Estás seguro?", "Borrar usuario", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, confirmacion, confirmacion[0]);
-				if (opcion==0 && valid.arBajaJugador(jugador)) {
-					JOptionPane.showMessageDialog(null, "Usuario borrado!");
-				} else {
-					JOptionPane.showMessageDialog(null, "El usuario no se borró.");
-				}
-				opcion = 10;
-				
-			} else if (opcion==4) {
-				Enemigo enemigo = null;
-				int random = (int)(Math.random()*4);
-				if (random==0) {
-					enemigo = ceres;
-				} else if (random==1) {
-					enemigo = eris;
-				} else if (random==1) {
-					enemigo = humea;
-				} else {
-					enemigo = dmoon;
-				}
-				mercury.transformarse(true); mars.transformarse(true); jupiter.transformarse(true); venus.transformarse(true);
-				modoBatalla(mercury, mars, jupiter, venus, enemigo);
-				mercury.transformarse(false); mars.transformarse(false); jupiter.transformarse(false); venus.transformarse(false);
-				opcion = 10;
-				
-			} else {
-				System.exit(0);
-			}
+	public void campana(Jugador jugador, Validador valid, Personaje earth, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo ceres, Enemigo eris, Enemigo humea, Enemigo dmoon) {
+		Historia sm = new Historia("Sailor Moon: Battle for Earth");
+		Decision ds = new Decision(true);
+		Batalla bt = new Batalla(0);
 		
-		} while (opcion==10);
+		int opcion = 0;
+		String []confirmacion= {"Si", "No"};
+		String player = "", senshi = "", fighter = "";
 		
 		if (jugador.getGenero().equals("Male")) {
 			player = "playerm.png";
@@ -123,15 +84,16 @@ public class Main {
 		
 		switch (jugador.getProgreso()) {
 			case 1: //Llegada al Parque Yoyogi
-				sm.Intro1(jugador, moon, mercury, mars, jupiter, venus);
-				ds.Decision1(jugador, moon, mercury, mars, jupiter, venus, dmoon);
-				ds.tutorialDecision(jugador, moon, mercury, mars, jupiter, venus, player);
-				valid.arNombre(jugador);
+				
+				sm.Prelude(jugador, moon, mercury, mars, jupiter, venus);
+				//ds.Decision1(jugador, moon, mercury, mars, jupiter, venus, dmoon);
+				//ds.tutorialDecision(jugador, moon, mercury, mars, jupiter, venus, player);
+				//valid.arNombre(jugador);
 				jugador.setProgreso(2);
 				valid.arModProgreso(jugador);
 			
 			case 2: //Mina se presenta
-				sm.Intro2(earth, jugador, moon, mercury, mars, jupiter, venus);		
+				sm.Intro(earth, jugador, moon, mercury, mars, jupiter, venus, dmoon);		
 				sm.Escena1(jugador, moon, mercury, mars, jupiter, venus, earth, ds.Decision2(jugador, moon, mercury, mars, jupiter, venus, dmoon), player);
 				jugador.setProgreso(3);
 				valid.arModProgreso(jugador);
@@ -172,16 +134,21 @@ public class Main {
 		default:
 			break;
 		}
-
+		
 	}
 	
-	private static void cargarJugador(Jugador jugador, Validador valid) {
+	public boolean cargarJugador(Jugador jugador, Validador valid, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo ceres, Enemigo eris, Enemigo humea, Enemigo dmoon) {
 		LinkedList<Jugador> usuarios = valid.arCargarProgreso();
-		String []partidas = new String[usuarios.size()];
 		
-		for (Jugador jugadores : usuarios) {
-			partidas[usuarios.indexOf(jugadores)]=jugadores.getNombre();	
-		}
+		if (usuarios.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "No hay datos para cargar.");
+			return false;
+			} else {
+			String []partidas = new String[usuarios.size()];
+
+			for (Jugador jugadores : usuarios) {
+			partidas[usuarios.indexOf(jugadores)]=jugadores.getNombre();
+			}
 		
 		String cargarPartida = (String) JOptionPane.showInputDialog(
 		        null,
@@ -200,11 +167,15 @@ public class Main {
 				jugador.setGenero(jugadores.getGenero());
 				jugador.setKarma(jugadores.getKarma());
 				jugador.setProgreso(jugadores.getProgreso());
+				}
 			}
+		cargarAfinidad(jugador, valid, mercury, mars, jupiter, venus);
+		cargarEnemigos(jugador, valid, ceres, eris, humea, dmoon);
+		return true;
 		}
 	}
 	
-	private static void cargarAfinidad(Jugador jugador, Validador valid, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
+	public void cargarAfinidad(Jugador jugador, Validador valid, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
 		LinkedList<Aliado> afinidades = valid.arCargarStatusAliado(jugador);
 		
 		mercury.setAfinidad(afinidades.get(0).getAfinidad());
@@ -213,7 +184,7 @@ public class Main {
 		venus.setAfinidad(afinidades.get(3).getAfinidad());
 	}
 	
-	private static void cargarEnemigos(Jugador jugador, Validador valid, Enemigo ceres, Enemigo eris, Enemigo humea, Enemigo dmoon) {
+	public void cargarEnemigos(Jugador jugador, Validador valid, Enemigo ceres, Enemigo eris, Enemigo humea, Enemigo dmoon) {
 		LinkedList<Enemigo> enemigos = valid.arCargarStatusEnemigo(jugador);
 		
 		ceres.setConfianza(enemigos.get(0).getConfianza());
@@ -233,7 +204,7 @@ public class Main {
 		dmoon.setCondicion(enemigos.get(3).getCondicion());	
 	}
 	
-	private static void modoBatalla(Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
+	public void modoBatalla(Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
 		Batalla bt = new Batalla(1);
 		int rondas = 4;
 		enemigo.setSalud(2);
