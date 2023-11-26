@@ -29,414 +29,281 @@ public class Historia {
 		return "Historia [titulo=" + titulo + "]";
 	}
 
-	public void Prelude(Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
+	public void Prelude(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
 		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
 		
-		String []lineas= {
-				"Ya es casi la hora.\nTengo que irme...",
-				"",
-				"Hoy es un día muy emocionante para todos:\nel rarísimo eclipse anular está a punto de ocurrir.\nAl igual que vos, muchos se están reuniendo\nen el Parque Yoyogi para presenciar el fenómeno.\nEn el camino, alguien acaba chocándote."
-		};
-		
-		String []nombre= {
-				"",
-				"",
-				""
-		};
-		
-		String []imgpersonaje= {
-				"",
-				"",
-				""
-		};
-		
-		String []imgfondo= {
-				"",
-				"/dll/acto0.jpg",
-				"/dll/yoyogi.jpg"
-		};
-		
-		String[][] matriztest = {
+		String[][] matriz = {
 			    {"Ya es casi la hora. Tengo que irme...", ""},
 			    {"", "acto0.jpg"},
 			    {"Hoy es un día muy emocionante para todos:\nel rarísimo eclipse anular está a punto de ocurrir.\nAl igual que vos, muchos se están reuniendo\nen el Parque Yoyogi para presenciar el fenómeno.\nEn el camino, alguien acaba chocándote.", "yoyogi.jpg"}
 			};
 
-		for (int i = 0; i < matriztest.length; i++) {
-		    String linea = matriztest[i][0];
-		    String img = matriztest[i][1];
+		for (int i = 0; i < matriz.length; i++) {
+		    String linea = matriz[i][0];
+		    String img = matriz[i][1];
 		JOptionPane.showMessageDialog(null, linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
 	}
 	
-	public void Intro(Personaje personaje, Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
-		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
-		String linea0 = "", linea6 = "", imgrespuesta = "";
+	//Decision1
+	
+	public void Intro1(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
+		String linea0 = "", imgrespuesta = "";
 		Decision ds = new Decision(true);
-		Connection cnx = new Conexion().conectar();
-		Validador valid = new Validador();
 		
-		if (ds.Decision1(jugador, moon, mercury, mars, jupiter, venus, enemigo)) {
+		if (ds.Decision1(jugador, mercury, mars, jupiter, venus, enemigo)) {
 			linea0 = "Ah, me alegro. Estaba distraída…";
-			linea6 = "Puedes llamarme Mako.";
 			imgrespuesta = "makogd.png";
 		} else {
 			linea0 = "Tampoco es para tanto. Estaba distraída…";
-			linea6 = "Bueno, tenemos que irnos ahora.";
 			imgrespuesta = "makobd.png";
 		}
 		
-		String []nombre= {
-				"Makoto",
-				"Tutorial:",
-				"Minako",
-				"Makoto",
-				"Minako",
-				//"Minako",
-				//"Makoto"
-		};
+		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
 		
-		String []lineas= {
-				linea0,
-				"Acabas de tomar una decisión.\nVea los íconos en la parte superior de la pantalla.\nTe señalan si tus elecciones fueron buenas o no\ny cómo esto afecta tu nivel de afinidad con cada una\nde las chicas: Ami, Rei, Mako y Mina.\nTus decisiones cambian el curso de la historia.",
-				"Eso es lo que pasa cuando miras a los chicos.",
-				"Es qué es exactamente mi tipo favorito...",
-				"Mako, siempre dices eso...\nAh, por cierto, ¿cómo te llamas?",
-				//"Mucho gusto, " + jugador.getNombre() + ".\nYo soy Minako, pero puedes llamarme Mina.\nEsta es Makoto.",
-				//linea6
-		};
-		
-		String []imgpersonaje= {
-				"/dll/Mako.png",
-				"",
-				"/dll/Mina.png",
-				"/dll/Mako.png",
-				"/dll/Mina.png",
-				//"/dll/Mina.png",
-				//"/dll/Mako.png"
-		};
-		
-		String []imgfondo= {
-				"/dll/yoyogi.jpg",
-				"/dll/yoyogi.jpg",
-				"/dll/yoyogi.jpg",
-				"/dll/yoyogi.jpg",
-				"/dll/yoyogi.jpg",
-				//"/dll/yoyogi.jpg",
-				//"/dll/yoyogi.jpg"
-		};
-		
-		String[][] matriztest = {
-			    {"Makoto: ", linea0, imgrespuesta},
-			    {"Tutorial: ", "Acabas de tomar una decisión.\nVea los íconos en la parte superior de la pantalla.\nTe señalan si tus elecciones fueron buenas o no\ny cómo esto afecta tu nivel de afinidad con cada una\nde las chicas: Ami, Rei, Mako y Mina.\nTus decisiones cambian el curso de la historia.", ""},
-			    {"Minako: ", "Eso es lo que pasa cuando miras a los chicos.", "Mina.png"},
-			    {"Makoto: ", "Es qué es exactamente mi tipo favorito...", "Mako.png"},
-			    {"Minako: ", "Mako, siempre dices eso...\nAh, por cierto, ¿cómo te llamas?", "Mina.png"},
+		String[][] matriz = {
+			    {"Makoto: ", linea0, imgrespuesta, "yoyogi.jpg"},
+			    {"Tutorial: ", "Acabas de tomar una decisión.\nVea los íconos en la parte superior de la pantalla.\nTe señalan si tus elecciones fueron buenas o no\ny cómo esto afecta tu nivel de afinidad con cada una\nde las chicas: Ami, Rei, Mako y Mina.\nTus decisiones cambian el curso de la historia.", "", "yoyogi.jpg"},
+			    {"Minako: ", "Eso es lo que pasa cuando miras a los chicos.", "Mina.png", "yoyogi.jpg"},
+			    {"Makoto: ", "Es qué me recuerda mucho el chico que me gustaba...", "Mako.png", "yoyogi.jpg"},
+			    {"Minako: ", "Mako, siempre dices eso...\nAh, por cierto, ¿cómo te llamas?", "Mina.png", "yoyogi.jpg"}
 			};
 
-		for (int i = 0; i < matriztest.length; i++) {
-			String persona = matriztest[i][0];
-		    String linea = matriztest[i][1];
-		    String img = matriztest[i][2];
+		for (int i = 0; i < matriz.length; i++) {
+			String persona = matriz[i][0];
+		    String linea = matriz[i][1];
+		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
+	}
+	
+	//valid.arNombre
+	
+	public void Intro2(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
+		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
+		String linea1 = "";
 		
-		valid.arNombre(jugador);
-		status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
-		
-		String[][] matriztest2 = {
-			    {"Minako: ", "Mucho gusto, " + jugador.getNombre() + ".\nYo soy Minako, pero puedes llamarme Mina.\nEsta es Makoto.", "Mina.png"},
-			    {"Makoto: ", linea6, "Mako.png"}
-			};
-		
-		for (int i = 0; i < matriztest2.length; i++) {
-			String persona = matriztest2[i][0];
-		    String linea = matriztest2[i][1];
-		    String img = matriztest2[i][2];
-		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
-		}
-		
-		/*
-		JOptionPane.showMessageDialog(null, venus.getNombre() + ":\nMucho gusto, " + jugador.getNombre() + ".\nYo soy Minako, pero puedes llamarme Mina.\nEsta es Makoto.", 
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mina.png")));
-
 		if (jupiter.getAfinidad()>3) {
-			JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\nPuedes llamarme Mako.\n¿No tienes compañía?", 
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(), 
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mako.png")));
+			linea1 = "Puedes llamarme Mako.";
 		} else {
-			JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\nBueno, tenemos que irnos ahora.", 
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mako.png")));
-			JOptionPane.showMessageDialog(null, venus.getNombre() + ":\nEspera… ¿no tienes compañía?", 
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mina.png")));
-		}*/
-	}
-	
-	public void Escena1(Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Personaje personaje, boolean decision, String icoPlayer) {	
-		if (decision) {
-			JOptionPane.showMessageDialog(null, "Sigues a Mina y Mako por el parque\nhasta que encuentras un grupo de personas\nhaciendo un picnic en el césped.\nVes a dos chicas peleando cuando llegas.",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-			JOptionPane.showMessageDialog(null, mars.getNombre() + ":\nUsagi!\nQuedamos en esperar a que lleguen todos para comer.",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Rei.png")));
-			JOptionPane.showMessageDialog(null, moon.getNombre() + ":\n¡¡Buuuwaa!!\n¡Rei, eres mala!\n¿¡No ves que me muero de hambre!?",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Usagi.png")));
-			JOptionPane.showMessageDialog(null, "Mamoru:\nUsako, ten paciencia.",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("mamoru.png")));
-			JOptionPane.showMessageDialog(null, moon.getNombre() + ":\n¿Tú también, mamo-chan?💔",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Usagi.png")));
-			JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\n¡Ooooee!\n¡Estamos acá!",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mako.png")));
-			JOptionPane.showMessageDialog(null, mercury.getNombre() + ":\n¡Por fin llegaron!",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Ami.png")));
-			JOptionPane.showMessageDialog(null, moon.getNombre() + ":\nOh, ¿eso significa que ya podemos comer?",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Usagi.png")));
-			JOptionPane.showMessageDialog(null, "Rei mira a Usagi con cara de desaprobación.",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("reirp1.png")));
-			JOptionPane.showMessageDialog(null, moon.getNombre() + ":\nSolo estaba bromeando.\n¡Ah, ja, ja! ¡Ah, ja, ja! ¡Ah, ja, ja!",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Usagi.png")));
-			JOptionPane.showMessageDialog(null, mercury.getNombre() + ":\n¿Quien es esta persona con ustedes?",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Ami.png")));
-			JOptionPane.showMessageDialog(null, venus.getNombre() + ":\nAh, es " + jugador.getNombre() + ". Acabamos de nos conocer.\n" + jugador.getNombre() + ", estas son Rei, Ami y Usagi.\nAh, y este es Mamoru, el novio de Usagi.",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mina.png")));
-			JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\nUsagi es la única de nosotros que tiene novio...",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mako.png")));
-			JOptionPane.showMessageDialog(null, mars.getNombre() + ":\nSólo la cabeza hueca...",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Rei.png")));
-			JOptionPane.showMessageDialog(null, moon.getNombre() + ":\nOye, ¿cómo me llamaste?",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Usagi.png")));
-			JOptionPane.showMessageDialog(null, "Te preguntas si siempre son así…",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(icoPlayer)));
-			JOptionPane.showMessageDialog(null, mercury.getNombre() + ":\n¡Chicas, miren!\n¡El evento está por comenzar!",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Ami.png")));
-			JOptionPane.showMessageDialog(null, moon.getNombre() + ":\n¡No he comido nada todavía!",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Usagi.png")));
-		} else {
-			JOptionPane.showMessageDialog(null, "Desde lejos, ves a Mina y Mako unirse a un grupo de personas que hacen un picnic en el césped del parque.\nParecen llevarse bien, aunque dos de ellos estuvieron discutiendo antes.\nSientes algo fuerte cuando los miras y te preguntas si tal vez no deberías haber ido con ellos.\nNo hay tiempo para arrepentimientos ahora, el espectáculo está por comenzar.",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
+			linea1 = "Bueno, tenemos que irnos ahora.";
+		}
+		
+		String[][] matriz = {
+			    {"Minako: ", "Mucho gusto, " + jugador.getNombre() + ".\nYo soy Minako, pero puedes llamarme Mina.\nEsta es Makoto.", "Mina.png", "yoyogi.jpg", status},
+			    {"Makoto: ", linea1, "Mako.png", "yoyogi.jpg", status}
+			};
+		
+		for (int i = 0; i < matriz.length; i++) {
+			String persona = matriz[i][0];
+		    String linea = matriz[i][1];
+		    String img = matriz[i][2];
+		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
 	}
 	
-	public void Escena2(Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo, Personaje personaje) {	
-		JOptionPane.showMessageDialog(null, "El día comienza a convertirse en noche\nmientras observas la luna ponerse frente a\nsol.\nPoco a poco, el sol se va convirtiendo en\nun anillo de fuego.\nSe escucha a la gente exclamando\nsorprendida, pero pronto las exclamaciones\nse convierten en bostezo.\nNotas que la gente a tu alrededor se\ndesmaya.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("eclipse.jpg")));
-		JOptionPane.showMessageDialog(null, "Mamoru:\nAlgo anda mal.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("mamoru.png")));
-		JOptionPane.showMessageDialog(null, mars.getNombre() + ":\n¿Qué les está pasando a estas personas?",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Rei.png")));
-		JOptionPane.showMessageDialog(null, venus.getNombre() + ":\nTodos se durmieron de repente.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mina.png")));
-		JOptionPane.showMessageDialog(null, mercury.getNombre() + ":\n ¡Hay alguien ahí!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Ami.png")));
-		JOptionPane.showMessageDialog(null, "Miras hacia dónde Ami señaló.\nComo si viniera de la luna, la silueta de alguien aparece flotando allí.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, mars.getNombre() + ":\n ¿Será un nuevo enemigo?",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Rei.png")));
-		JOptionPane.showMessageDialog(null, moon.getNombre() + ":\n Chicas, transfórmense.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Usagi.png")));
-		JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\n Pero Usagi...",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mako.png")));
-		JOptionPane.showMessageDialog(null, "Las chicas te miran.\nTodos sucumbieron al sueño, excepto vos y este grupo de personas\nque ahora te miran fijamente sin saber qué hacer.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
+	//Decision2
+	
+	public void Escena1(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo, String icoPlayer) {	
+		Decision ds = new Decision(true);
+		String linea12 = "";
 		
 		if (jugador.getGenero().equals("Male")) {
-			JOptionPane.showMessageDialog(null, mercury.getNombre() + ":\n ¿No es extraño que el no se desmayara como los demás?",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Ami.png")));
+			linea12 = "¿Quien es este con ustedes?";
 		} else {
-			JOptionPane.showMessageDialog(null, mercury.getNombre() + ":\n ¿No es extraño que ella no se desmayara como los demás?",
-					"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-					JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Ami.png")));
+			linea12 = "¿Quien es esta con ustedes?";
 		}
 		
-		JOptionPane.showMessageDialog(null, "Una voz viene detrás de todos:\n“¡Chicas! ¡No tenemos tiempo que perder!\" ",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, venus.getNombre() + ":\n ¿¡Artemis!?",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("Mina.png")));
-		JOptionPane.showMessageDialog(null, "Notas que la voz provenía de un gato blanco que acaba de llegar,\ny pronto otro gato de pelaje oscuro también comienza a hablar:",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, "Luna:\nNo se preocupen por eso.\nTengo una suposición...\n\n¡Transformense ahora mismo!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("luna.png")));
-		JOptionPane.showMessageDialog(null, "Las chicas asienten con la cabeza hacia los gatos.\nCada una comienza a gritar por un planeta y pronto sus cuerpos\nson envueltos por una luz que las transforma en guerreras.\nAunque te sorprenda, sientes algo extrañamente familiar en todo esto.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("allmakeup.png")));
+		if (ds.Decision2(jugador, mercury, mars, jupiter, venus, enemigo)) {
+			
+			String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
+			
+			String[][] matriz = {
+				    {"Mina: ", "¡Entonces vámonos!\nNuestros amigos ya nos están esperando.", "minagd.png", "yoyogi.jpg", status},
+				    {"", "Sigues a Mina y Mako por el parque\nhasta que encuentras un grupo de personas\nhaciendo un picnic en el césped.\nVes a dos chicas peleando cuando llegas.", "", "picnic.jpg", status},
+				    {"Rei: ", "Usagi!\nQuedamos en esperar a que lleguen todos para comer.", "Rei.png", "picnic.jpg", status},
+				    {"Usagi: ", "¡¡Buuuwaa!!\n¡Rei, eres mala!\n¿¡No ves que me muero de hambre!?", "Usagi.png", "picnic.jpg", status},
+				    {"Mamoru: ", "Usako, ten paciencia.", "mamoru.png", "picnic.jpg", status},
+				    {"Usagi: ", "¿Tú también, mamo-chan?💔", "Usagi.png", "picnic.jpg", status},
+				    {"Mako: ", "¡Ooooee!\n¡Estamos acá!", "Mako.png", "picnic.jpg", status},
+				    {"Ami: ", "¡Por fin llegaron!", "Ami.png", "picnic.jpg", status},
+				    {"Usagi: ", "Oh, ¿eso significa que ya podemos comer?", "Usagi.png", "picnic.jpg", status},
+				    {"", "Rei mira a Usagi con cara de desaprobación.", "reirp1.png", "picnic.jpg", status},
+				    {"Usagi: ", "Solo estaba bromeando.\n¡Ah, ja, ja! ¡Ah, ja, ja! ¡Ah, ja, ja!", "Usagi.png", "picnic.jpg", status},
+				    {"Ami: ", linea12, "Ami.png", "picnic.jpg", status},
+				    {"Mina: ", "Ah, es " + jugador.getNombre() + ". Acabamos de nos conocer.\n" + jugador.getNombre() + ", estas son Rei, Ami y Usagi.\nAh, y este es Mamoru, el novio de Usagi.", "Mina.png", "picnic.jpg", status},
+				    {"Mako: ", "Usagi es la única de nosotros que tiene novio...", "Mako.png", "picnic.jpg", status},
+				    {"Rei: ", "Sólo la cabeza hueca...", "Rei.png", "picnic.jpg", status},
+				    {"Usagi: ", "Oye, ¿cómo me llamaste?", "Usagi.png", "picnic.jpg", status},
+				    {"", "Te preguntas si siempre son así…", icoPlayer, "picnic.jpg", status},
+				    {"Ami: ", "¡Chicas, miren!\n¡El evento está por comenzar!", "Ami.png", "picnic.jpg", status},
+				    {"Usagi: ", "¡No he comido nada todavía!", "Usagi.png", "picnic.jpg", status}
+				};
+			
+			for (int i = 0; i < matriz.length; i++) {
+				String persona = matriz[i][0];
+			    String linea = matriz[i][1];
+			    String img = matriz[i][2];
+			JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
+			}
+
+		} else {
+			
+			String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
+			
+			String[][] matriz = {
+					{"Mina: ", "Oh, ya debes tener otros planes.\nTodo bien entonces. ¡Nos vemos por ahí!", "minabd.png", "yoyogi.jpg", status},
+				    {"", "Desde lejos, ves a Mina y Mako unirse a un\ngrupo de personas que hacen un picnic en el\ncésped del parque. Parecen llevarse bien,\naunque dos de ellos estuvieron discutiendo\nantes. Sientes algo fuerte cuando los miras\ny te preguntas si tal vez no deberías haber\nido con ellos. No hay tiempo para arrepen-\ntimientos ahora, el espectáculo está por\ncomenzar.", "", "picnic.jpg", status}
+				};
+			
+			for (int i = 0; i < matriz.length; i++) {
+				String persona = matriz[i][0];
+			    String linea = matriz[i][1];
+			    String img = matriz[i][2];
+			JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
+			}
+			
+		}
 		
-		moon.transformarse(true); mercury.transformarse(true); mars.transformarse(true); jupiter.transformarse(true); venus.transformarse(true);
-		
-		JOptionPane.showMessageDialog(null, moon.getNombre() + ":\n ¡Detente ahí!\n¿Cómo te atreves a interrumpir un momento tan sublime\npara la gente que vino a este parque a relajarse?\n¡Y hasta arruinaste mi comida!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("moonrp2.png")));
-		JOptionPane.showMessageDialog(null, moon.getNombre() + ":\n Soy Sailor Moon, la hermosa guerrera disfrazada de marinera\nque lucha por el amor y la justicia.\n¡Te castigaré en nombre de la luna!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("moonrp4.png")));
-		JOptionPane.showMessageDialog(null, "???:\n ¿Castigarme? Que curioso…\nporque vine aquí precisamente para castigarte…\na ti.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("darkmoon.png")));
-		JOptionPane.showMessageDialog(null, mercury.getNombre() + ":\n ¡Es ella quien está emitiendo ondas de sueño!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("mercrp12.png")));
-		JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\n ¿Quién eres tú para castigarnos?",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("juprp5.png")));
-		JOptionPane.showMessageDialog(null, "???:\n ¿¡No saben quién soy!?",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("darkmoon.png")));
-		JOptionPane.showMessageDialog(null, "La figura se acerca, aún flotando en el aire.\nPuedes verlo mejor ahora.\nSu traje es grotesco y se te pone la piel de gallina al mirarla.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("dmoonfight.png")));
-		JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\n Soy la emperatriz de la luna oscura, Nyx.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("darkmoon.png")));
-		JOptionPane.showMessageDialog(null, "Todo el mundo está asustado por la presentación.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, venus.getNombre() + ":\n ¡Eso no es verdad!\nLa luna solo tiene una gobernante.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("venusrp1.png")));
-		JOptionPane.showMessageDialog(null, "Artemis:\nDurante mucho tiempo hubo rumores de\nuna emperatriz antes de la Queen Serenity.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("artrp1.png")));
-		JOptionPane.showMessageDialog(null, "Luna:\nEsto es tan viejo que ya nadie lo recuerda.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("lunarp1.png")));
-		JOptionPane.showMessageDialog(null, moon.getNombre() + ":\n ¿Pero por qué lastimas a la gente?",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("moonrp11.png")));
-		JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\n ¡Porque te desprecio!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("darkmoon.png")));
-		JOptionPane.showMessageDialog(null, "En un movimiento rápido, Nyx se acerca\ny comienza a estrangular a Sailor Moon.\nTodos exclaman asustados.\nTienes ganas de ayudarla, pero no sabes cómo.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, "Luna:\nEsta aura…",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("luna.png")));
-		JOptionPane.showMessageDialog(null, "Luna no deja de mirarte,\nincluso cuando todos están preocupados por Sailor Moon.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
 	}
+	
+	public void Escena2(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {	
+		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
+		String linea11 = "";
+		
+		if (jugador.getGenero().equals("Male")) {
+			linea11 = "¿No es extraño que el no se desmayara como los demás?";
+		} else {
+			linea11 = "¿No es extraño que ella no se desmayara como los demás?";
+		}
+		
+		String[][] matriz = {
+				{"", "El día comienza a convertirse en noche\nmientras observas la luna ponerse frente a\nsol.\nPoco a poco, el sol se va convirtiendo en\nun anillo de fuego.\nSe escucha a la gente exclamando\nsorprendida, pero pronto las exclamaciones\nse convierten en bostezo.\nNotas que la gente a tu alrededor se\ndesmaya.", "", "eclipse.jpg", status},
+			    {"Mamoru: ", "Algo anda mal.", "mamoru.png", "eclipse.jpg", status},
+			    {"Rei: ", "¿Qué les está pasando a estas personas?", "Rei.png", "eclipse.jpg", status},
+			    {"Mina: ", "Todos se durmieron de repente.", "Mina.png", "eclipse.jpg", status},
+			    {"Ami: ", "¡Hay alguien ahí!", "Ami.png", "eclipse.jpg", status},
+			    {"", "Miras hacia dónde Ami señaló.\nComo si viniera de la luna, la silueta de alguien aparece flotando allí.", "", "eclipse.jpg", status},
+			    {"Rei: ", "¿Será un nuevo enemigo?", "Rei.png", "eclipse.jpg", status},
+			    {"Usagi: ", "Chicas, transfórmense.", "Usagi.png", "eclipse.jpg", status},
+			    {"Mako: ", "Pero Usagi...", "Mako.png", "eclipse.jpg", status},
+			    {"", "Las chicas te miran.\nTodos sucumbieron al sueño, excepto vos y este grupo de personas\nque ahora te miran fijamente sin saber qué hacer.", "", status},
+			    {"Ami: ", linea11, "Ami.png", "eclipse.jpg", status},
+			    {"???: ", "¡Chicas! ¡No tenemos tiempo que perder!", "", "eclipse.jpg", status},
+			    {"Mina: ", "¿¡Artemis!?", "Mina.png", "eclipse.jpg", status},
+			    {"", "Notas que un gato blanco acaba de llegar,\njunto con otro gato de pelaje oscuro que\ncomienza a hablar.", "", "eclipse.jpg", status},
+			    {"Luna: ", "No se preocupen por eso.\nTengo una suposición...\n\n¡Transformense ahora mismo!", "luna.png", "eclipse.jpg", status},
+			    {"", "Las chicas asienten con la cabeza hacia los\ngatos. Sus cuerpos son envueltos por una\nluz que las transforma en guerreras cuando\ngritan por sus planetas protectores. Aunque\nte sorprenda, sientes algo extrañamente\nfamiliar en todo esto.", "", "allmakeup.jpg", status},
+			    {"Sailor Moon: ", "¡Detente ahí!\n¿Cómo te atreves a interrumpir un momento\ntan sublime para la gente que vino a este\nparque a relajarse?\n¡Y hasta arruinaste mi comida!", "moonrp2.png", "eclipse.jpg", status},
+			    {"Sailor Moon: ", "Soy Sailor Moon, la hermosa guerrera\ndisfrazada de marinera que lucha por el\namor y la justicia.\n¡Te castigaré en nombre de la luna!", "moonrp4.png", "eclipse.jpg", status},
+			    {"???: ", "¿Castigarme? Que curioso…\nporque vine aquí precisamente para castigarte…\na ti.", "darkmoon.png", "eclipse.jpg", status},
+			    {"Sailor Mercury: ", "¡Ella está emitiendo ondas de sueño!", "mercrp12.png", "eclipse.jpg", status},
+			    {"Sailor Jupiter: ", "¿Quién sos para castigarnos?", "juprp5.png", "eclipse.jpg", status},
+			    {"???: ", "¿¡No saben quién soy!?", "darkmoon.png", "eclipse.jpg", status},
+			    {"", "La figura se acerca, aún flotando en el\naire. Puedes verlo mejor ahora. Su traje es\ngrotesco y se te pone la piel de gallina al\nmirarla.", "dmoonfight.png", "eclipse.jpg", status},
+			    {"Nyx: ", "Soy la emperatriz de la luna oscura, Nyx.", "darkmoon.png", "eclipse.jpg", status},
+			    {"", "Todos están asustado por la presentación.", "", "eclipse.jpg", status},
+			    {"Sailor Venus: ", "¡Eso no es verdad!\nLa luna solo tiene una gobernante.", "venusrp1.png", "eclipse.jpg", status},
+			    {"Artemis: ", "Hace mucho tiempo hubo rumores de una\nemperatriz antes de la Queen Serenity.", "artrp1.png", "eclipse.jpg", status},
+			    {"Luna: ", "Tanto tiempo que nadie lo recuerda.", "lunarp1.png", "eclipse.jpg", status},
+			    {"Sailor Moon: ", "¿Pero por qué lastimas a la gente?", "moonrp11.png", "eclipse.jpg", status},
+			    {"Nyx: ", "¡Porque te desprecio!", "darkmoon.png", "eclipse.jpg", status},
+			    {"", "En un movimiento rápido, Nyx se acerca y\ncomienza a estrangular a Sailor Moon. Todos\nexclaman asustados. Tienes ganas de ayudar-\nla, pero no sabes cómo.", "", "eclipse.jpg", status},
+			    {"Luna: ", "Esta aura…", "luna.png", "eclipse.jpg", status},
+			    {"", "Luna no deja de mirarte, incluso cuando\ntodos están preocupados por Sailor Moon.", "luna.png", "eclipse.jpg", status}
+			};
+
+		for (int i = 0; i < matriz.length; i++) {
+			String persona = matriz[i][0];
+		    String linea = matriz[i][1];
+		    String img = matriz[i][2];
+		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
+		}
+	
+	}
+	
+	//Decision3
 	
 	public void Escena3(Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Personaje personaje, Enemigo enemigo, String icoPlayer, String icoSenshi) {
-		moon.transformarse(true); mercury.transformarse(true); mars.transformarse(true); jupiter.transformarse(true); venus.transformarse(true);
-		JOptionPane.showMessageDialog(null, "Tuxedo Mask:\nLa gente duerme para tener buenos sueños,\n¡pero tú los convertiste en pesadillas!\n¡Sailor Moon, ahora!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("tmask.png")));
-		JOptionPane.showMessageDialog(null, moon.getNombre() + ":\n No sé por qué hiciste esto,\npero no puedo permitir que sigas lastimando a la gente.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("moonrp3.png")));
-		JOptionPane.showMessageDialog(null, "", "Curación Lunar ¡Acción!",  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("mooncure.gif")));
-		JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\n Tonta.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("darkmoon.png")));
-		JOptionPane.showMessageDialog(null, "Con un simple movimiento, Nyx desvía el golpe\ny este viene hacia ti.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, "Todos:\n¡Eso no!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, "Sientes un aura fuerte que rodea tu cuerpo cuando te golpea.\nDerrepente, todo tu cuerpo brilla.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, "Luna:\nEs como sospechaba.\n¡Rápido, pídele a la Tierra que te despierte!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("lunarp1.png")));
-		JOptionPane.showMessageDialog(null, "'Despiértame…?' Las palabras te confunden.\nRecordando cómo se transformaron las chicas, haces lo mismo:\n“¡Por ​​el poder del planeta Tierra, despiértame!”",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(icoPlayer)));
+		Decision ds = new Decision(true);
+		String linea0 = "";
 		
-		personaje.transformarse(true);
+		if (ds.Decision3(jugador)) {
+			linea0 = "Recoges una piedra para arrojarla al\nenemigo, pero una rosa roja cruza el cielo\ny golpea a Nyx, provocando que libere a\nSailor Moon. Te das cuenta de que acaba de\naparecer un joven con esmoquin y máscara.";
+		} else {
+			linea0 = "Afortunadamente, una rosa roja cruza el\ncielo y golpea a Nyx, provocando que libere\na Sailor Moon. Te das cuenta de que acaba\nde aparecer un joven con esmoquin y\nmáscara.";
+		}
 		
-		JOptionPane.showMessageDialog(null, "Y pronto su ropa da paso a un traje de combate.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(icoSenshi)));
-		JOptionPane.showMessageDialog(null, "Todas las chicas:\n¡No es posible!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, "Luna:\n¡Tal como lo imaginaba!",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("luna.png")));
-		JOptionPane.showMessageDialog(null, "Artemis:\nPensé que era sólo un mito...",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("artemis.png")));
-		JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\nAsí que ahí estás...",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("darkmoon.png")));
-		JOptionPane.showMessageDialog(null, "Luna:\n¡Necesitamos tu ayuda!\nPero todavía no sabes luchar...",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("luna.png")));
+		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
+		
+		String[][] matriz = {
+				{"", linea0, "", "tmaskatk.jpg", status},
+				{"Tuxedo Mask: ", "La gente duerme para tener buenos sueños,\n¡pero tú los convertiste en pesadillas!\n¡Sailor Moon, ahora!", "tmask.png", "eclipse.jpg", status},
+				{"Sailor Moon: ", "No sé por qué hiciste esto, pero no puedo\npermitir que sigas lastimando a la gente.", "moonrp3.png", "eclipse.jpg", status},
+				{"Sailor Moon: ", "Curación Lunar ¡Acción!", "", "mooncure.gif", status},
+				{"Nyx: ", "Tonta", "darkmoon.png", "eclipse.jpg", status},
+				{"", "Con un simple movimiento, Nyx desvía el\ngolpe y este viene hacia ti.", "", "eclipse.jpg", status},
+				{"Todos: ", "¡Eso no!", "", "eclipse.jpg", status},
+				{"", "Sientes un aura fuerte que rodea tu cuerpo\ncuando te golpea. Derrepente, todo tu\ncuerpo brilla.", "", "eclipse.jpg", status},
+				{"Luna: ", "Es como sospechaba.\n¡Rápido, pídele a la Tierra que te despierte!", "lunarp1.png", "eclipse.jpg", status},
+				{jugador.getNombre() + ": ", "Despiértame…?", icoPlayer, "eclipse.jpg", status},
+				{"", "Las palabras te confunden. Recordando cómo\nse transformaron las otras, haces lo mismo.", "", "eclipse.jpg", status},
+				{jugador.getNombre() + ": ", "¡Por ​​el poder del planeta Tierra,\ndespiértame!", icoPlayer, "eclipse.jpg", status},
+				{"", "Y pronto su ropa da paso a un traje de\ncombate.", icoSenshi, "eclipse.jpg", status},
+				{"Todos: ", "¡No es posible!", "", "eclipse.jpg", status},
+				{"Luna: ", "¡Es como imaginaba!", "luna.png", "eclipse.jpg", status},
+				{"Artemis: ", "Entonces no es un mito...", "artemis.png", "eclipse.jpg", status},
+				{"Nyx: ", "Así que ahí estás...", "darkmoon.png", "eclipse.jpg", status},
+				{"Luna: ", "¡Necesitamos tu ayuda! Pero todavía no\nsabes luchar...", "luna.png", "eclipse.jpg", status},
+				{"Luna: ", "Elige una Sailor Guerrera para enfrentar\na Nyx contigo. Cada una tiene sus propios\nataques. Elige la mejor opción para\nenfrentarte a cada enemigo.", "luna.png", "selectsailor.png", status},
+				{"Luna: ", "Si su elección es satisfactoria, puedes\natacar al enemigo. Esto lo debilita,\nhaciendo más fácil derrotarlo o salvarlo.", "luna.png", "selectsailor.png", status},
+				{"Luna: ", "Analiza al enemigo y el poder de cada\nSailor Guerrera para tomar la mejor\ndecisión.", "luna.png", "selectsailor.png", status}
+		};
+		
+		for (int i = 0; i < matriz.length; i++) {
+			String persona = matriz[i][0];
+		    String linea = matriz[i][1];
+		    String img = matriz[i][2];
+		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
+		}
+		
 	}
 	
-	public void Escena4(Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Personaje personaje, Enemigo enemigo) {
-		moon.transformarse(true); mercury.transformarse(true); mars.transformarse(true); jupiter.transformarse(true); venus.transformarse(true); personaje.transformarse(true);
-		JOptionPane.showMessageDialog(null, "En ese momento, Sailor Moon se desmaya\nfrente a todos, causando preocupación.\nTuxedo Mask la toma en sus brazos y se da\ncuenta de que todavía está viva, pero su\ncuerpo está frío como la noche.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, mars.getNombre() + ":\n¿Por qué haces esto?",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("marsrp6.png")));
-		JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\nEso es lo que se merecen por encerrarme\nen la oscuridad durante tanto tiempo.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("darkmoon.png")));
-		JOptionPane.showMessageDialog(null, jupiter.getNombre() + ":\n¡Eso no tiene sentido!\nNunca nos habíamos conocido antes.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("juprp4.png")));
-		JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\nEste mundo todavía está sucio.\nPronto se pudrirá.\nY perecerás junto con él.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, "Antes de que alguien pueda decir algo,\nla figura de Nyx se eleva hacia el cielo,\ndesapareciendo de la misma manera que apareció.\nEl eclipse se está terminando.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
-		JOptionPane.showMessageDialog(null, "Luna:\nChicos...\nHa llegado el momento de que conozcan\nla historia de Dark Moon y Sailor Earth.",
-				"Karma: " + jugador.getKarma() + " | Afinidad:  ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),
-				JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("luna.png")));
-		moon.transformarse(false); mercury.transformarse(false); mars.transformarse(false); jupiter.transformarse(false); venus.transformarse(false); personaje.transformarse(false);
+	//batalla
+	
+	public void Escena4(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
+		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
+		
+		String[][] matriz = {
+				{"Tuxedo Mask: ", "Es el fin.", "tmask.png", "eclipse.jpg", status},
+				{"Nyx: ", "Tienes razón. Es el fin, pero no para mí.", "darkmoon.png", "eclipse.jpg", status},
+				{"", "En ese momento, Sailor Moon se desmaya\nfrente a todos, causando preocupación.\nTuxedo Mask la toma en sus brazos y se da\ncuenta de que todavía está viva, pero su\ncuerpo está frío como la noche.", "", "smfaint.jpg", status},
+			    {"Sailor Mars: ", "¿Por qué haces esto?", "marsrp6.png", "eclipse.jpg", status},
+			    {"Nyx: ", "Eso es lo que se merecen por encerrarme\nen la oscuridad durante tanto tiempo.", "darkmoon.png", "eclipse.jpg", status},
+			    {"Sailor Jupiter: ", "¡Eso no tiene sentido!\\nNunca nos habíamos conocido antes.", "juprp4.png", "eclipse.jpg", status},
+			    {"Nyx: ", "Este mundo todavía está sucio.\nPronto se pudrirá.\nY perecerás junto con él.", "darkmoon.png", "eclipse.jpg", status},
+			    {"", "Antes de que alguien pueda decir algo, la\nfigura de Nyx se eleva hacia el cielo,\ndesapareciendo de la misma manera que\napareció. El eclipse se está terminando.", "", "eclipse.jpg", status},
+			    {"Luna: ", "Chicos...\nHa llegado el momento de que conozcan la\nhistoria de Dark Moon y Sailor Earth.", "luna.png", "eclipse.jpg", status}
+			};
+		
+		for (int i = 0; i < matriz.length; i++) {
+			String persona = matriz[i][0];
+		    String linea = matriz[i][1];
+		    String img = matriz[i][2];
+		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
+		}
+		
 	}
 	
 	
 	public void fin(Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
-		moon.transformarse(false); mercury.transformarse(false); mars.transformarse(false); jupiter.transformarse(false); venus.transformarse(false);
 		int max = -100;
 		String nomMax = "";
-		
+		/*
 		if (max<=moon.getAfinidad()) {
 			max = moon.getAfinidad();
 			nomMax = moon.getNombre();
-		}
+		}*/
 		
 		if (max<=mercury.getAfinidad()) {
 			max = mercury.getAfinidad();
@@ -460,11 +327,28 @@ public class Historia {
 		
 		//controlar os empates
 		
-		String img = nomMax + ".png";
-		JOptionPane.showMessageDialog(null, "¡Gracias por jugar la demostración del juego!\nFormaste un vínculo especial con " + nomMax + ".\nEspero que estés listo para aventurarte con ella\nen esta nueva aventura de Sailor Moon.", "Fin de la Demo",  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
-		JOptionPane.showMessageDialog(null, "Sailor Moon: Battle for Earth\n¡Próximamente!", "Fin de la Demo",  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource("")));
+		String image = nomMax + ".png";
+		
+		
+		String[][] matriz = {
+			    {"", "¡Gracias por jugar la demostración del\njuego! Formaste un vínculo especial con\n" + nomMax + ". Espero que estés listo para\naventurarte con ella en esta nueva aventura\nde Sailor Moon.", image, "smend.jpg"},
+			};
+		
+		for (int i = 0; i < matriz.length; i++) {
+			String persona = matriz[i][0];
+		    String linea = matriz[i][1];
+		    String img = matriz[i][2];
+		JOptionPane.showMessageDialog(null, persona + linea, "Fin de la Demo",  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
+		}
+
+		//"Sailor Moon: Battle for Earth\n¡Próximamente!"
 	}
 
-	
+	/*
+	 * String[][] matriz = {
+			    {"Minako: ", "Mucho gusto, " + jugador.getNombre() + ".\nYo soy Minako, pero puedes llamarme Mina.\nEsta es Makoto.", "Mina.png", "yoyogi.jpg", status},
+			    {"Makoto: ", linea1, "Mako.png", "yoyogi.jpg", status}
+			};
+	 */
 
 }

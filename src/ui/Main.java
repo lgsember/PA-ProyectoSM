@@ -83,54 +83,43 @@ public class Main {
 		System.out.println("Dark Moon: S-" + dmoon.getSalud() + " A-" + dmoon.getConfianza() + " C-" + dmoon.getCondicion());
 		
 		switch (jugador.getProgreso()) {
-			case 1: //Llegada al Parque Yoyogi
-				
-				sm.Prelude(jugador, moon, mercury, mars, jupiter, venus);
-				//ds.Decision1(jugador, moon, mercury, mars, jupiter, venus, dmoon);
-				//ds.tutorialDecision(jugador, moon, mercury, mars, jupiter, venus, player);
-				//valid.arNombre(jugador);
+			case 1: //Acto0
+				sm.Prelude(jugador, mercury, mars, jupiter, venus);
+				sm.Intro1(jugador, mercury, mars, jupiter, venus, dmoon);
+				valid.arNombre(jugador);
+				sm.Intro2(jugador, mercury, mars, jupiter, venus, dmoon);
+				sm.Escena1(jugador, mercury, mars, jupiter, venus, dmoon, player);				
 				jugador.setProgreso(2);
 				valid.arModProgreso(jugador);
-			
-			case 2: //Mina se presenta
-				sm.Intro(earth, jugador, moon, mercury, mars, jupiter, venus, dmoon);		
-				sm.Escena1(jugador, moon, mercury, mars, jupiter, venus, earth, ds.Decision2(jugador, moon, mercury, mars, jupiter, venus, dmoon), player);
-				jugador.setProgreso(3);
-				valid.arModProgreso(jugador);
-	
 				opcion = JOptionPane.showOptionDialog(null, "Continuar?", "Proxima Seccion", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, confirmacion, confirmacion[0]);
-				
 				if (opcion==1) {
 					System.exit(0);
 				}
 				
-			case 3: //Llegada de Nyx
-				sm.Escena2(jugador, moon, mercury, mars, jupiter, venus, dmoon, earth);
-				ds.Decision3(jugador, moon, mercury, mars, jupiter, venus);
-				jugador.setProgreso(4);
+			case 2: //Llegada de Nyx
+				sm.Escena2(jugador, mercury, mars, jupiter, venus, dmoon);
+				sm.Escena3(jugador, moon, mercury, mars, jupiter, venus, humea, dmoon, player, senshi);	
+				jugador.setProgreso(3);
 				valid.arModProgreso(jugador);
-				
-			case 4: //Surge Tuxedo Mask
-				sm.Escena3(jugador, moon, mercury, mars, jupiter, venus, earth, dmoon, player, fighter);
-				jugador.setProgreso(5);
-				valid.arModProgreso(jugador);
-	
-			case 5: //Batalla Tutorial
-				moon.transformarse(true); mercury.transformarse(true); mars.transformarse(true); jupiter.transformarse(true); venus.transformarse(true);
-				JOptionPane.showMessageDialog(null, "Luna:\nElige una Sailor Guerrera para enfrentar\na Nyx contigo. Cada una tiene sus propios\nataques. Elige la mejor opción para\nenfrentarte a cada enemigo.", "Tutorial",  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource("selectsailor.png")));							
+				break;
+
+			case 3: //Batalla Tutorial					
 				bt.tutorial(earth, jugador, moon, mercury, mars, jupiter, venus, dmoon, bt.definirGanador(dmoon, dmoon.usarPoder((int) (Math.random() * 2)), bt.eligirAtaque(mercury, mars, jupiter, venus)));
-				jugador.setProgreso(6);
+				jugador.setProgreso(4);
 				valid.arModProgreso(jugador);
 				//dowhile nas proximas batalhas
 				
-			case 6: //Fin acto 0
-				sm.Escena4(jugador, moon, mercury, mars, jupiter, venus, earth, dmoon);
-				jugador.setProgreso(6);
-				valid.arModProgreso(jugador);	
-				opcion = JOptionPane.showOptionDialog(null, "Continuar?", "Fin del acto 0", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, confirmacion, confirmacion[0]);
+			case 4: //Fin acto 0
+				sm.Escena4(jugador, mercury, mars, jupiter, venus);
+				sm.fin(moon, mercury, mars, jupiter, venus);
+				jugador.setProgreso(1);
+				valid.arModProgreso(jugador);
+				/*
+				opcion = JOptionPane.showOptionDialog(null, "Continuar?", "Proximo Acto", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, confirmacion, confirmacion[0]);
 				if (opcion==1) {
 					System.exit(0);
-				}
+				}*/
+
 		default:
 			break;
 		}
