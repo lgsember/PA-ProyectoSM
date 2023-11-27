@@ -50,7 +50,7 @@ public class Main {
 	}
 	
 	public void campana(Jugador jugador, Validador valid, Personaje earth, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo ceres, Enemigo eris, Enemigo humea, Enemigo dmoon) {
-		Historia sm = new Historia("Sailor Moon: Battle for Earth");
+		Historia sm = new Historia(0);
 		Decision ds = new Decision(true);
 		Batalla bt = new Batalla(0);
 		
@@ -84,24 +84,35 @@ public class Main {
 		
 		switch (jugador.getProgreso()) {
 			case 1: //Acto0
-				sm.Prelude(jugador, mercury, mars, jupiter, venus);
-				sm.Intro1(jugador, mercury, mars, jupiter, venus, dmoon);
+				
+				Dialogo preludio = new Dialogo(sm.Prelude(jugador, mercury, mars, jupiter, venus));
+				preludio.run();
+
+				Dialogo intro1 = new Dialogo(sm.Intro1(jugador, mercury, mars, jupiter, venus, dmoon));
+				intro1.run();
+					
 				valid.arNombre(jugador);
-				sm.Intro2(jugador, mercury, mars, jupiter, venus, dmoon);
-				sm.Escena1(jugador, mercury, mars, jupiter, venus, dmoon, player);				
+				
+				Dialogo intro2 = new Dialogo(sm.Intro2(jugador, mercury, mars, jupiter, venus, dmoon));
+				intro2.run();
+						
+				Dialogo escena1 = new Dialogo(sm.Escena1(jugador, mercury, mars, jupiter, venus, dmoon, player));
+				escena1.run();
+							
 				jugador.setProgreso(2);
 				valid.arModProgreso(jugador);
+								
 				opcion = JOptionPane.showOptionDialog(null, "Continuar?", "Proxima Seccion", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, confirmacion, confirmacion[0]);
 				if (opcion==1) {
-					System.exit(0);
-				}
-				
+				System.exit(0);
+				}			
+
+				break;
 			case 2: //Llegada de Nyx
 				sm.Escena2(jugador, mercury, mars, jupiter, venus, dmoon);
 				sm.Escena3(jugador, moon, mercury, mars, jupiter, venus, humea, dmoon, player, senshi);	
 				jugador.setProgreso(3);
 				valid.arModProgreso(jugador);
-				break;
 
 			case 3: //Batalla Tutorial					
 				bt.tutorial(earth, jugador, moon, mercury, mars, jupiter, venus, dmoon, bt.definirGanador(dmoon, dmoon.usarPoder((int) (Math.random() * 2)), bt.eligirAtaque(mercury, mars, jupiter, venus)));

@@ -6,48 +6,52 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import bll.Validador;
+import ui.Dialogo;
 
 public class Historia {
 	
-	private String titulo;
+	private int seccion;
 
-	public Historia(String titulo) {
+	public Historia(int seccion) {
 		super();
-		this.titulo = titulo;
+		this.seccion = seccion;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public int getSeccion() {
+		return seccion;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setSeccion(int seccion) {
+		this.seccion = seccion;
 	}
 
 	@Override
 	public String toString() {
-		return "Historia [titulo=" + titulo + "]";
+		return "Historia [titulo=" + seccion + "]";
 	}
 
-	public void Prelude(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
+	public String[][] Prelude(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
 		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
 		
 		String[][] matriz = {
-			    {"Ya es casi la hora. Tengo que irme...", ""},
-			    {"", "acto0.jpg"},
-			    {"Hoy es un día muy emocionante para todos:\nel rarísimo eclipse anular está a punto de ocurrir.\nAl igual que vos, muchos se están reuniendo\nen el Parque Yoyogi para presenciar el fenómeno.\nEn el camino, alguien acaba chocándote.", "yoyogi.jpg"}
+			    {"", "Ya es casi la hora. Tengo que irme...", "", "", status},
+			    {"", "", "", "acto0.jpg", status},
+			    {"", "Hoy es un día muy emocionante para todos:\nel rarísimo eclipse anular está a punto de ocurrir.\nAl igual que vos, muchos se están reuniendo\nen el Parque Yoyogi para presenciar el fenómeno.\nEn el camino, alguien acaba chocándote.", "", "yoyogi.jpg", status}
 			};
-
+		/*
 		for (int i = 0; i < matriz.length; i++) {
-		    String linea = matriz[i][0];
-		    String img = matriz[i][1];
+		    String linea = matriz[i][1];
+		    String img = matriz[i][3];
 		JOptionPane.showMessageDialog(null, linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
-		}
+		}*/
+		
+		
+		return matriz;
 	}
 	
 	//Decision1
 	
-	public void Intro1(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
+	public String[][] Intro1(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
 		String linea0 = "", imgrespuesta = "";
 		Decision ds = new Decision(true);
 		
@@ -62,24 +66,27 @@ public class Historia {
 		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
 		
 		String[][] matriz = {
-			    {"Makoto: ", linea0, imgrespuesta, "yoyogi.jpg"},
-			    {"Tutorial: ", "Acabas de tomar una decisión.\nVea los íconos en la parte superior de la pantalla.\nTe señalan si tus elecciones fueron buenas o no\ny cómo esto afecta tu nivel de afinidad con cada una\nde las chicas: Ami, Rei, Mako y Mina.\nTus decisiones cambian el curso de la historia.", "", "yoyogi.jpg"},
-			    {"Minako: ", "Eso es lo que pasa cuando miras a los chicos.", "Mina.png", "yoyogi.jpg"},
-			    {"Makoto: ", "Es qué me recuerda mucho el chico que me gustaba...", "Mako.png", "yoyogi.jpg"},
-			    {"Minako: ", "Mako, siempre dices eso...\nAh, por cierto, ¿cómo te llamas?", "Mina.png", "yoyogi.jpg"}
+			    {"Makoto: ", linea0, imgrespuesta, "yoyogi.jpg", status},
+			    {"Tutorial: ", "Acabas de tomar una decisión.\nVea los íconos en la parte superior de la pantalla.\nTe señalan si tus elecciones fueron buenas o no\ny cómo esto afecta tu nivel de afinidad con cada una\nde las chicas: Ami, Rei, Mako y Mina.\nTus decisiones cambian el curso de la historia.", "", "yoyogi.jpg", status},
+			    {"Minako: ", "Eso es lo que pasa cuando miras a los chicos.", "Mina.png", "yoyogi.jpg", status},
+			    {"Makoto: ", "Es qué me recuerda mucho el chico que me gustaba...", "Mako.png", "yoyogi.jpg", status},
+			    {"Minako: ", "Mako, siempre dices eso...\nAh, por cierto, ¿cómo te llamas?", "Mina.png", "yoyogi.jpg", status}
 			};
-
+		/*
 		for (int i = 0; i < matriz.length; i++) {
 			String persona = matriz[i][0];
 		    String linea = matriz[i][1];
 		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
-		}
+		}*/
+		
+		
+		return matriz;
 	}
 	
 	//valid.arNombre
 	
-	public void Intro2(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
+	public String[][] Intro2(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
 		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
 		String linea1 = "";
 		
@@ -93,18 +100,21 @@ public class Historia {
 			    {"Minako: ", "Mucho gusto, " + jugador.getNombre() + ".\nYo soy Minako, pero puedes llamarme Mina.\nEsta es Makoto.", "Mina.png", "yoyogi.jpg", status},
 			    {"Makoto: ", linea1, "Mako.png", "yoyogi.jpg", status}
 			};
-		
+		/*
 		for (int i = 0; i < matriz.length; i++) {
 			String persona = matriz[i][0];
 		    String linea = matriz[i][1];
 		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
-		}
+		}*/
+		
+		
+		return matriz;
 	}
 	
 	//Decision2
 	
-	public void Escena1(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo, String icoPlayer) {	
+	public String[][] Escena1(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo, String icoPlayer) {	
 		Decision ds = new Decision(true);
 		String linea12 = "";
 		
@@ -139,14 +149,16 @@ public class Historia {
 				    {"Ami: ", "¡Chicas, miren!\n¡El evento está por comenzar!", "Ami.png", "picnic.jpg", status},
 				    {"Usagi: ", "¡No he comido nada todavía!", "Usagi.png", "picnic.jpg", status}
 				};
-			
+			/*
 			for (int i = 0; i < matriz.length; i++) {
 				String persona = matriz[i][0];
 			    String linea = matriz[i][1];
 			    String img = matriz[i][2];
 			JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 			}
-
+			 */
+			
+			return matriz;
 		} else {
 			
 			String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
@@ -155,19 +167,21 @@ public class Historia {
 					{"Mina: ", "Oh, ya debes tener otros planes.\nTodo bien entonces. ¡Nos vemos por ahí!", "minabd.png", "yoyogi.jpg", status},
 				    {"", "Desde lejos, ves a Mina y Mako unirse a un\ngrupo de personas que hacen un picnic en el\ncésped del parque. Parecen llevarse bien,\naunque dos de ellos estuvieron discutiendo\nantes. Sientes algo fuerte cuando los miras\ny te preguntas si tal vez no deberías haber\nido con ellos. No hay tiempo para arrepen-\ntimientos ahora, el espectáculo está por\ncomenzar.", "", "picnic.jpg", status}
 				};
-			
+			/*
 			for (int i = 0; i < matriz.length; i++) {
 				String persona = matriz[i][0];
 			    String linea = matriz[i][1];
 			    String img = matriz[i][2];
 			JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 			}
+			*/
 			
+			return matriz;
 		}
 		
 	}
 	
-	public void Escena2(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {	
+	public String[][] Escena2(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {	
 		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
 		String linea11 = "";
 		
@@ -212,19 +226,20 @@ public class Historia {
 			    {"Luna: ", "Esta aura…", "luna.png", "eclipse.jpg", status},
 			    {"", "Luna no deja de mirarte, incluso cuando\ntodos están preocupados por Sailor Moon.", "luna.png", "eclipse.jpg", status}
 			};
-
+		/*
 		for (int i = 0; i < matriz.length; i++) {
 			String persona = matriz[i][0];
 		    String linea = matriz[i][1];
 		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
-	
+		*/
+		return matriz;
 	}
 	
 	//Decision3
 	
-	public void Escena3(Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Personaje personaje, Enemigo enemigo, String icoPlayer, String icoSenshi) {
+	public String[][] Escena3(Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Personaje personaje, Enemigo enemigo, String icoPlayer, String icoSenshi) {
 		Decision ds = new Decision(true);
 		String linea0 = "";
 		
@@ -259,19 +274,20 @@ public class Historia {
 				{"Luna: ", "Si su elección es satisfactoria, puedes\natacar al enemigo. Esto lo debilita,\nhaciendo más fácil derrotarlo o salvarlo.", "luna.png", "selectsailor.png", status},
 				{"Luna: ", "Analiza al enemigo y el poder de cada\nSailor Guerrera para tomar la mejor\ndecisión.", "luna.png", "selectsailor.png", status}
 		};
-		
+		/*
 		for (int i = 0; i < matriz.length; i++) {
 			String persona = matriz[i][0];
 		    String linea = matriz[i][1];
 		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
-		
+		*/
+		return matriz;
 	}
 	
 	//batalla
 	
-	public void Escena4(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
+	public String[][] Escena4(Jugador jugador, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
 		String status = "Jugador: " + jugador.getNombre() + " | Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad();
 		
 		String[][] matriz = {
@@ -285,18 +301,19 @@ public class Historia {
 			    {"", "Antes de que alguien pueda decir algo, la\nfigura de Nyx se eleva hacia el cielo,\ndesapareciendo de la misma manera que\napareció. El eclipse se está terminando.", "", "eclipse.jpg", status},
 			    {"Luna: ", "Chicos...\nHa llegado el momento de que conozcan la\nhistoria de Dark Moon y Sailor Earth.", "luna.png", "eclipse.jpg", status}
 			};
-		
+		/*
 		for (int i = 0; i < matriz.length; i++) {
 			String persona = matriz[i][0];
 		    String linea = matriz[i][1];
 		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
-		
+		*/
+		return matriz;
 	}
 	
 	
-	public void fin(Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
+	public String[][] fin(Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
 		int max = -100;
 		String nomMax = "";
 		/*
@@ -333,15 +350,16 @@ public class Historia {
 		String[][] matriz = {
 			    {"", "¡Gracias por jugar la demostración del\njuego! Formaste un vínculo especial con\n" + nomMax + ". Espero que estés listo para\naventurarte con ella en esta nueva aventura\nde Sailor Moon.", image, "smend.jpg"},
 			};
-		
+		/*
 		for (int i = 0; i < matriz.length; i++) {
 			String persona = matriz[i][0];
 		    String linea = matriz[i][1];
 		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, "Fin de la Demo",  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
-
+		 */
 		//"Sailor Moon: Battle for Earth\n¡Próximamente!"
+		return matriz;
 	}
 
 	/*
