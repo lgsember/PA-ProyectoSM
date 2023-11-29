@@ -20,7 +20,7 @@ public class Validador {
 	
 	public boolean arNuevoJugador(Jugador jugador) {
 		int idGenerado = 0, generoElegido = 0;
-		String nomFalso = "Jugador " + (int)(Math.random()*999999);
+		String nomFalso = "Jugador " + (int)(Math.random()*999);
 		
 		String[] generos = {"Chico", "Chica", "Lo que sea"};
 		
@@ -37,17 +37,21 @@ public class Validador {
 		
 		 if (opGender==0) {
 			jugador.setGenero("Male");
+			jugador.setImage("playerm.png");
 			generoElegido = 1;
 		} else if (opGender==1) {
 			jugador.setGenero("Female");
+			jugador.setImage("playerf.png");
 			generoElegido = 2;
 		} else {
 			int decidir = (int) (Math.random() * 2);
 			if (decidir==0) {
 				jugador.setGenero("Male");
+				jugador.setImage("playerm.png");
 				generoElegido = 1;
 			} else {
 				jugador.setGenero("Female");
+				jugador.setImage("playerf.png");
 				generoElegido = 2;
 			}
 		}
@@ -247,7 +251,7 @@ public class Validador {
 	
 	public LinkedList<Jugador> arCargarProgreso() {
 		LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
-		String nombre = "", genero = "";
+		String nombre = "", genero = "", image = "";
 		int id = 0, gender = 0, karma = 0, progreso = 0;
 		
 		try {
@@ -263,11 +267,13 @@ public class Validador {
 	    	
 	    	if (gender==1) {
 	    		genero = "Male";
+	    		image = "playerm.png";
 			} else {
 				genero = "Female";
+				image = "playerf.png";
 			}
 	
-	    	jugadores.add(new Jugador(id, nombre, genero, karma, progreso));
+	    	jugadores.add(new Jugador(id, nombre, genero, image, karma, progreso));
 	    	
 	    	}
 	    	

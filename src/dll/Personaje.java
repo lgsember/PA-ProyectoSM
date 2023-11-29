@@ -53,22 +53,5 @@ public class Personaje {
 				+ "]";
 	}
 	
-	public void transformarse(boolean transformed) {
-		if (transformed) {
-			this.setNombre("Sailor " + this.getPlaneta());
-		} else {
-			if (this.getPlaneta().equals("Moon")) {
-				this.setNombre("Usagi");
-			} else if (this.getPlaneta().equals("Mercury")) {
-				this.setNombre("Ami");
-			} else if (this.getPlaneta().equals("Mars")) {
-				this.setNombre("Rei");
-			} else if (this.getPlaneta().equals("Jupiter")) {
-				this.setNombre("Mako");
-			} else if (this.getPlaneta().equals("Venus")) {
-				this.setNombre("Mina");
-			}
-		}
-	}
 
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26/11/2023 às 21:26
+-- Tempo de geração: 29/11/2023 às 21:54
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -80,12 +80,7 @@ CREATE TABLE `jugador` (
 --
 
 INSERT INTO `jugador` (`idJugador`, `nomJugador`, `karma`, `genero`, `progreso`) VALUES
-(1, 'Nayru', 1, 2, 1),
-(3, 'Molly', 0, 2, 1),
-(4, 'Damian', 0, 1, 1),
-(5, 'Day', 0, 1, 2),
-(6, 'Jugador 223523', 0, 2, 1),
-(7, 'Nite', 0, 1, 1);
+(1, 'Tester', 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -137,10 +132,10 @@ CREATE TABLE `seccion` (
 --
 
 INSERT INTO `seccion` (`idSeccion`, `tituloEscena`, `textoEscena`) VALUES
-(1, 'Acto 0', 'Hoy es un día muy emocionante para todos: el rarísimo eclipse anular está a punto de ocurrir.\r\n\r\nAl igual que vos, muchos se están reuniendo en el Parque Yoyogi para presenciar el fenómeno.\r\n\r\nEn el camino, alguien acaba chocándote.'),
-(2, 'Llegada de Nyx', 'El día comienza a convertirse en noche mientras observas la luna ponerse frente al sol.\r\n\r\nPoco a poco, el sol se va convirtiendo en un anillo de fuego.\r\n\r\nSe escucha a la gente sorprendida, pero pronto las exclamaciones se convierten en bostezo.\r\n\r\nNotas que la gente a tu alrededor se desmaya.'),
-(3, 'Batalla Tutorial', 'Luna: Elige una Sailor Guerrera para enfrentar a Nyx contigo. Cada una tiene sus propios ataques. Elige la mejor opción para enfrentarte a cada enemigo.'),
-(4, 'Fin acto 0', 'En ese momento, Sailor Moon se desmaya frente a todos, causando preocupación. Tuxedo Mask la toma en sus brazos y se da cuenta de que todavía está viva, pero su cuerpo está frío como la noche.');
+(1, 'Acto 0', 'Preludio, Intro 1, Intro 2, Escena 1'),
+(2, 'Llegada de Nyx', 'Escena 2, Escena 3'),
+(3, 'Batalla Tutorial', 'batallaTutorial'),
+(4, 'Fin Acto 0', 'Escena 4, findemo');
 
 -- --------------------------------------------------------
 
@@ -169,47 +164,7 @@ INSERT INTO `status` (`idStatus`, `afinidad`, `salud`, `condicion`, `personaje`,
 (5, 0, 2, 2, 11, 1),
 (6, 0, 2, 2, 12, 1),
 (7, 0, 3, 2, 13, 1),
-(8, 0, 4, 2, 14, 1),
-(9, 3, 0, 1, 3, 3),
-(10, 3, 0, 1, 4, 3),
-(11, 4, 0, 1, 5, 3),
-(12, 2, 0, 1, 6, 3),
-(13, 0, 2, 2, 11, 3),
-(14, 0, 2, 2, 12, 3),
-(15, 0, 3, 2, 13, 3),
-(16, 0, 4, 2, 14, 3),
-(17, 3, 0, 1, 3, 4),
-(18, 3, 0, 1, 4, 4),
-(19, 2, 0, 1, 5, 4),
-(20, 4, 0, 1, 6, 4),
-(21, 0, 2, 2, 11, 4),
-(22, 0, 2, 2, 12, 4),
-(23, 0, 3, 2, 13, 4),
-(24, 0, 4, 2, 14, 4),
-(25, 3, 0, 1, 3, 5),
-(26, 3, 0, 1, 4, 5),
-(27, 4, 0, 1, 5, 5),
-(28, 4, 0, 1, 6, 5),
-(29, 0, 2, 2, 11, 5),
-(30, 0, 2, 2, 12, 5),
-(31, 0, 3, 2, 13, 5),
-(32, 0, 4, 2, 14, 5),
-(33, 3, 0, 1, 3, 6),
-(34, 3, 0, 1, 4, 6),
-(35, 2, 0, 1, 5, 6),
-(36, 3, 0, 1, 6, 6),
-(37, 0, 2, 2, 11, 6),
-(38, 0, 2, 2, 12, 6),
-(39, 0, 3, 2, 13, 6),
-(40, 0, 4, 2, 14, 6),
-(41, 3, 0, 1, 3, 7),
-(42, 3, 0, 1, 4, 7),
-(43, 8, 0, 1, 5, 7),
-(44, 2, 0, 1, 6, 7),
-(45, 0, 2, 2, 11, 7),
-(46, 0, 2, 2, 12, 7),
-(47, 0, 3, 2, 13, 7),
-(48, 0, 4, 2, 14, 7);
+(8, 0, 4, 2, 14, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -276,7 +231,7 @@ ALTER TABLE `genero`
 -- AUTO_INCREMENT de tabela `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `personaje`
@@ -294,7 +249,7 @@ ALTER TABLE `seccion`
 -- AUTO_INCREMENT de tabela `status`
 --
 ALTER TABLE `status`
-  MODIFY `idStatus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `idStatus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restrições para tabelas despejadas

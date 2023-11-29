@@ -29,6 +29,12 @@ public class Dialogo extends JFrame {
 	String[][] matriz;
 	int escena = 0;
 	String justified = "<html><body style=\"text-align: justify;  text-justify: inter-word; \">%s</body></html>";
+	
+	public interface DialogoCallback {
+        void onDialogoCompleted();
+    }
+
+    private DialogoCallback callback;
 
 			public void run() {
 				try {
@@ -39,15 +45,16 @@ public class Dialogo extends JFrame {
 				}
 			}
 
-	public Dialogo(String[][] matriz) {	
+	public Dialogo(String[][] matriz, DialogoCallback callback) {	
 		this.matriz = matriz;
+		this.callback = callback;
 		
 		setTitle("Diálogo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 530, 320);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
@@ -77,7 +84,7 @@ public class Dialogo extends JFrame {
 		infCentral.setLayout(new BorderLayout(0, 0));
 		
 		//linea
-		JLabel lblSpeech = new JLabel(matriz[escena][1]);
+		JLabel lblSpeech = new JLabel(String.format(justified, matriz[escena][1]));
 		infCentral.add(lblSpeech);
 		
 		JPanel infDerecha = new JPanel();
@@ -114,8 +121,8 @@ public class Dialogo extends JFrame {
 		panelDerecha.add(derCentral, BorderLayout.CENTER);
 		derCentral.setLayout(new GridLayout(2, 1, 0, 120));
 		
-		JLabel lblNewLabel = new JLabel("");
-		derCentral.add(lblNewLabel);
+		JLabel lblEspacio = new JLabel("                   ");
+		derCentral.add(lblEspacio);
 		
 		JPanel panelCentral = new JPanel();
 		panelPrincipal.add(panelCentral, BorderLayout.CENTER);
@@ -138,8 +145,18 @@ public class Dialogo extends JFrame {
 			        lblSpeech.setText(String.format(justified, matriz[escena][1]));
 			        lblSpeaker.setIcon(new ImageIcon(Dialogo.class.getResource("/dll/" + matriz[escena][2])));
 			        lblFondo.setIcon(new ImageIcon(Dialogo.class.getResource("/dll/" + matriz[escena][3])));
+			        
+			        if (matriz[escena][2].equals("")) {
+			        	lblSpeaker.setText("                   ");
+					} else {
+						lblSpeaker.setText("");
+					}
+			        
 				} else {
 					dispose();
+					if (callback != null) {
+                        callback.onDialogoCompleted();
+                    }
 				}
 
 		        }

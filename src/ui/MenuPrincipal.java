@@ -53,7 +53,7 @@ public class MenuPrincipal extends JFrame {
 		Validador valid = new Validador();
 		Main main = new Main();
 		
-		Jugador jugador = new Jugador(0, "", null, 0, 1);
+		Jugador jugador = new Jugador(0, "", "", "", 0, 1);
 		Personaje earth = new Personaje("", "Earth", "¡Semillas de la Tierra, germinen!", "¡Ventiscas espirales de la Tierra!");
 		
 		Aliado moon = new Aliado("Usagi", "Moon", "Tiara Lunar ¡Acción!", "¡Curación Lunar, Acción!", 3);
@@ -67,11 +67,12 @@ public class MenuPrincipal extends JFrame {
 		Enemigo humea = new Enemigo("Sailor Haumea", "Humea", "¡Ciclón perforador de Humea, devastación!", "¡Proyección astral de Humea!", 3, "Enemigo", 0);
 		Enemigo dmoon = new Enemigo("Nyx", "Dark Moon", "Eclipse anular, ¡manifiéstate!", "¡Ondas sonoras de la Luna Oscura!", 4, "Enemigo", 0);
 		
+		setTitle("Menu Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 416);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
@@ -140,9 +141,7 @@ public class MenuPrincipal extends JFrame {
 				} else {
 					enemigo = dmoon;
 				}
-				mercury.transformarse(true); mars.transformarse(true); jupiter.transformarse(true); venus.transformarse(true);
 				main.modoBatalla(mercury, mars, jupiter, venus, enemigo);
-				mercury.transformarse(false); mars.transformarse(false); jupiter.transformarse(false); venus.transformarse(false);
             }
         });
         panelBotones.add(btnBatalla);

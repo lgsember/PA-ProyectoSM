@@ -24,7 +24,7 @@ public class Batalla {
 	public String toString() {
 		return "Batalla [id=" + id + "]";
 	}
-	
+	/*
 	public void tutorial(Personaje earth, Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo, boolean victoria) {
 		if (victoria) {
 			JOptionPane.showMessageDialog(null, "Luna: Su elección fue satisfactoria, por lo que pudiste atacar al enemigo.\nEsto lo debilita, haciendo más fácil derrotarlo o salvarlo.", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("luna.png")));
@@ -34,10 +34,10 @@ public class Batalla {
 			JOptionPane.showMessageDialog(null, "Luna: Su elección no fue satisfactoria, por lo que no pudiste atacar al enemigo.\nAnaliza al enemigo y el poder de cada Sailor Guerrera\npara tomar la mejor decisión y debilitar al enemigo.", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("luna.png")));
 			JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\nAhora es demasiado tarde...", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("darkmoon.png")));
 		}
-	}
+	}*/
 	
 	public String eligirAtaque(Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
-		String[] respuesta = {mercury.getNombre(), mars.getNombre(), jupiter.getNombre(), venus.getNombre()};
+		String[] respuesta = {"Sailor Mercury", "Sailor Mars", "Sailor Jupiter", "Sailor Venus"};
 		int poder;
 		Aliado aliado = null;
 

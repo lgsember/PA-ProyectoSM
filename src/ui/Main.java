@@ -2,17 +2,16 @@ package ui;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import bll.Validador;
 import dll.Aliado;
 import dll.Batalla;
-import dll.Conexion;
 import dll.Decision;
 import dll.Enemigo;
 import dll.Historia;
 import dll.Jugador;
 import dll.Personaje;
-import java.sql.Connection;
 import java.util.LinkedList;
 
 public class Main {
@@ -56,17 +55,6 @@ public class Main {
 		
 		int opcion = 0;
 		String []confirmacion= {"Si", "No"};
-		String player = "", senshi = "", fighter = "";
-		
-		if (jugador.getGenero().equals("Male")) {
-			player = "playerm.png";
-			senshi = "earthm.png";
-			fighter = "earthmfight.png";
-		} else {
-			player = "playerf.png";
-			senshi = "earthf.png";
-			fighter = "earthffight.png";
-		}
 		
 		System.out.println("ID: " + jugador.getId());
 		System.out.println("NAME: " + jugador.getNombre());
@@ -82,59 +70,157 @@ public class Main {
 		System.out.println("Humea: S-" + humea.getSalud() + " A-" + humea.getConfianza() + " C-" + humea.getCondicion());
 		System.out.println("Dark Moon: S-" + dmoon.getSalud() + " A-" + dmoon.getConfianza() + " C-" + dmoon.getCondicion());
 		
-		switch (jugador.getProgreso()) {
-			case 1: //Acto0
-				
-				Dialogo preludio = new Dialogo(sm.Prelude(jugador, mercury, mars, jupiter, venus));
-				preludio.run();
+		if (jugador.getProgreso()==1) {
 
-				Dialogo intro1 = new Dialogo(sm.Intro1(jugador, mercury, mars, jupiter, venus, dmoon));
-				intro1.run();
-					
-				valid.arNombre(jugador);
-				
-				Dialogo intro2 = new Dialogo(sm.Intro2(jugador, mercury, mars, jupiter, venus, dmoon));
-				intro2.run();
-						
-				Dialogo escena1 = new Dialogo(sm.Escena1(jugador, mercury, mars, jupiter, venus, dmoon, player));
-				escena1.run();
-							
-				jugador.setProgreso(2);
-				valid.arModProgreso(jugador);
+				Dialogo preludio = new Dialogo(sm.Prelude(jugador, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+				    @Override
+				    public void onDialogoCompleted() {
+				    	Dialogo intro1 = new Dialogo(sm.Intro1(jugador, mercury, mars, jupiter, venus, dmoon), new Dialogo.DialogoCallback() {
+						    @Override
+						    public void onDialogoCompleted() {
+						    	valid.arNombre(jugador);
 								
-				opcion = JOptionPane.showOptionDialog(null, "Continuar?", "Proxima Seccion", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, confirmacion, confirmacion[0]);
-				if (opcion==1) {
-				System.exit(0);
-				}			
-
-				break;
-			case 2: //Llegada de Nyx
-				sm.Escena2(jugador, mercury, mars, jupiter, venus, dmoon);
-				sm.Escena3(jugador, moon, mercury, mars, jupiter, venus, humea, dmoon, player, senshi);	
-				jugador.setProgreso(3);
-				valid.arModProgreso(jugador);
-
-			case 3: //Batalla Tutorial					
-				bt.tutorial(earth, jugador, moon, mercury, mars, jupiter, venus, dmoon, bt.definirGanador(dmoon, dmoon.usarPoder((int) (Math.random() * 2)), bt.eligirAtaque(mercury, mars, jupiter, venus)));
-				jugador.setProgreso(4);
-				valid.arModProgreso(jugador);
-				//dowhile nas proximas batalhas
-				
-			case 4: //Fin acto 0
-				sm.Escena4(jugador, mercury, mars, jupiter, venus);
-				sm.fin(moon, mercury, mars, jupiter, venus);
-				jugador.setProgreso(1);
-				valid.arModProgreso(jugador);
-				/*
-				opcion = JOptionPane.showOptionDialog(null, "Continuar?", "Proximo Acto", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, confirmacion, confirmacion[0]);
-				if (opcion==1) {
-					System.exit(0);
-				}*/
-
-		default:
-			break;
-		}
+								Dialogo intro2 = new Dialogo(sm.Intro2(jugador, mercury, mars, jupiter, venus, dmoon), new Dialogo.DialogoCallback() {
+								    @Override
+								    public void onDialogoCompleted() {
+								    	
+								    	Dialogo escena1 = new Dialogo(sm.Escena1(jugador, mercury, mars, jupiter, venus, dmoon), new Dialogo.DialogoCallback() {
+										    @Override
+										    public void onDialogoCompleted() {
+										    	jugador.setProgreso(2);
+												valid.arModProgreso(jugador);
+												
+												//progreso2
+													
+													Dialogo escena2 = new Dialogo(sm.Escena2(jugador, mercury, mars, jupiter, venus, dmoon), new Dialogo.DialogoCallback() {
+													    @Override
+													    public void onDialogoCompleted() {
+													    	Dialogo escena3 = new Dialogo(sm.Escena3(jugador, mercury, mars, jupiter, venus, dmoon), new Dialogo.DialogoCallback() {
+															    @Override
+															    public void onDialogoCompleted() {
+															    	jugador.setProgreso(3);
+																	valid.arModProgreso(jugador);
+																	
+																	//progreso3
+																		batallaTutorial(mercury, mars, jupiter, venus, dmoon);
+																		jugador.setProgreso(4);
+																		valid.arModProgreso(jugador);
+																		
+																		//progreso4
+																			Dialogo escena4 = new Dialogo(sm.Escena4(jugador, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+																			    @Override
+																			    public void onDialogoCompleted() {
+																			    	Dialogo findemo = new Dialogo(sm.fin(moon, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+																			    	    @Override
+																			    	    public void onDialogoCompleted() {
+																			    	    	jugador.setProgreso(1);
+																							valid.arModProgreso(jugador);
+																			    	    }
+																			    	});
+																			    	findemo.run();
+																			    }
+																			});
+																			escena4.run();
+															    }
+															});
+															escena3.run();
+													    }
+													});
+													escena2.run();					
+										    }
+										});
+										escena1.run();
+								    }
+								});
+								intro2.run();
+						    }
+						});
+						intro1.run();
+				    }
+				});
+				preludio.run();
 		
+		} else if (jugador.getProgreso()==2) {
+			
+			Dialogo escena2 = new Dialogo(sm.Escena2(jugador, mercury, mars, jupiter, venus, dmoon), new Dialogo.DialogoCallback() {
+			    @Override
+			    public void onDialogoCompleted() {
+			    	Dialogo escena3 = new Dialogo(sm.Escena3(jugador, mercury, mars, jupiter, venus, dmoon), new Dialogo.DialogoCallback() {
+					    @Override
+					    public void onDialogoCompleted() {
+					    	jugador.setProgreso(3);
+							valid.arModProgreso(jugador);
+							
+							//progreso3
+								batallaTutorial(mercury, mars, jupiter, venus, dmoon);
+								jugador.setProgreso(4);
+								valid.arModProgreso(jugador);
+								
+								//progreso4
+									Dialogo escena4 = new Dialogo(sm.Escena4(jugador, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+									    @Override
+									    public void onDialogoCompleted() {
+									    	Dialogo findemo = new Dialogo(sm.fin(moon, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+									    	    @Override
+									    	    public void onDialogoCompleted() {
+									    	    	jugador.setProgreso(1);
+													valid.arModProgreso(jugador);
+									    	    }
+									    	});
+									    	findemo.run();
+									    }
+									});
+									escena4.run();
+					    }
+					});
+					escena3.run();
+			    }
+			});
+			escena2.run();
+
+	} else if (jugador.getProgreso()==3) {
+		
+		batallaTutorial(mercury, mars, jupiter, venus, dmoon);
+		jugador.setProgreso(4);
+		valid.arModProgreso(jugador);
+		
+		//progreso4
+			Dialogo escena4 = new Dialogo(sm.Escena4(jugador, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+			    @Override
+			    public void onDialogoCompleted() {
+			    	Dialogo findemo = new Dialogo(sm.fin(moon, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+			    	    @Override
+			    	    public void onDialogoCompleted() {
+			    	    	jugador.setProgreso(1);
+							valid.arModProgreso(jugador);
+			    	    }
+			    	});
+			    	findemo.run();
+			    }
+			});
+			escena4.run();
+
+	} else if (jugador.getProgreso()==4) {
+		Dialogo escena4 = new Dialogo(sm.Escena4(jugador, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+		    @Override
+		    public void onDialogoCompleted() {
+		    	Dialogo findemo = new Dialogo(sm.fin(moon, mercury, mars, jupiter, venus), new Dialogo.DialogoCallback() {
+		    	    @Override
+		    	    public void onDialogoCompleted() {
+		    	    	jugador.setProgreso(5);
+						valid.arModProgreso(jugador);
+		    	    }
+		    	});
+		    	findemo.run();
+		    }
+		});
+		escena4.run();
+	} else if (jugador.getProgreso()==5) {
+		JOptionPane.showMessageDialog(null, "Gracias por jugar la demo del juego.\nCarga tu juego para jugar desde el inicio otra vez.");
+		jugador.setProgreso(1);
+		valid.arModProgreso(jugador);
+	}
+	
 	}
 	
 	public boolean cargarJugador(Jugador jugador, Validador valid, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo ceres, Enemigo eris, Enemigo humea, Enemigo dmoon) {
@@ -300,4 +386,73 @@ public class Main {
 		}
 
 	}
+
+	public void batallaTutorial(Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
+		Batalla bt = new Batalla(1);
+		int rondas = 4;
+		enemigo.setSalud(2);
+		String imgEnemigo = "", atk ="";
+		boolean ganador = false;
+		
+		if (enemigo.getPlaneta().equals("Ceres")) {
+			imgEnemigo = "ceres.png";
+			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Tierra.");
+		} else if (enemigo.getPlaneta().equals("Eris")) {
+			imgEnemigo = "eris.png";
+			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Hielo y Luz.");
+		} else if (enemigo.getPlaneta().equals("Humea")) {
+			imgEnemigo = "humea.png";
+			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Aire y Oscuridad.");
+		} else if (enemigo.getPlaneta().equals("Dark Moon")) {
+			imgEnemigo = "nyx.png";
+			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getPlaneta() + ".\n" + enemigo.getNombre() + " tiene poderes de tipo Fuego y Oscuridad.");
+		}
+		
+		do {
+			
+			atk = bt.eligirAtaque(mercury, mars, jupiter, venus);
+
+			while (atk.equals("none")) {
+			atk = bt.eligirAtaque(mercury, mars, jupiter, venus);
+			}
+
+		if (bt.definirGanador(enemigo, enemigo.usarPoder((int) (Math.random() * 2)), atk)) {
+			enemigo.setSalud(enemigo.getSalud()-1);
+			rondas = rondas + 1;
+			
+			if (enemigo.getSalud()==1) {
+				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿¡Cómo te atreves!?", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+			} else if (enemigo.getSalud()==0) {
+				ganador = true;
+				rondas = 0;
+			}
+			
+		} else {
+			if (rondas==4) {
+				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿Eso es todo lo que puedes hacer?", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+				rondas = rondas - 1;
+			} else if (rondas==3) {
+				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¡Eres patético!", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+				rondas = rondas - 1;
+			} else if (rondas==2) {
+				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": No puedes contra mí.", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+				rondas = rondas - 1;
+			} else if (rondas==1) {
+				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": Basta. Ya me cansé.", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+				rondas = rondas - 1;
+			}
+		}
+		
+		} while (rondas>0);
+		
+		if (ganador) {
+			JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿Cómo perdí contra ti...?", "Ganó la batalla", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+			
+		} else {
+			JOptionPane.showMessageDialog(null, "Perdiste la batalla contra " + enemigo.getNombre() + ".");
+			
+		}
+
+	}
+	
 }
