@@ -323,7 +323,9 @@ public class Main {
 			String []decision= {"Curar el enemigo" , "Derrotar el enemigo"};
 			String []respuestas= {"Sé que no querías hacer esto." , "Entiendo lo que hiciste y no te juzgaré por ello.", "Ya no hay nada que puedas hacer."};
 			
-			int opcion = JOptionPane.showOptionDialog(null, "Que quieres hacer?", "Decidir el destino del enemigo", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, decision, decision[0]);
+			
+			
+			int opcion = JOptionPane.showOptionDialog(null, "Que quieres hacer?", "Decidir el destino del enemigo", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon(Main.class.getResource("earthffight.png")), decision, decision[0]);
 			
 			if (opcion==1) {
 				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿¡Cómo puedes ser tan cruel!?", "Enemigo derrotado", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
@@ -332,7 +334,7 @@ public class Main {
 			} else {
 				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": Oh, ¿quieres curarme? ¿Crees que me convencerás?", "Curar Enemigo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
 				
-				opcion = JOptionPane.showOptionDialog(null, "Que vas a decir?", "Convencer el enemigo", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, respuestas, respuestas[0]);
+				opcion = JOptionPane.showOptionDialog(null, "Que vas a decir?", "Convencer el enemigo", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon(Main.class.getResource("earthffight.png")), respuestas, respuestas[0]);
 				
 				if (opcion==0) {
 					JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¡Sí, pero eso no cambia nada! Todavía no te creo.", "Enemigo curado", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
