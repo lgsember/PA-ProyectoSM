@@ -2,12 +2,9 @@ package ui;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
 import bll.Validador;
 import dll.Aliado;
 import dll.Batalla;
-import dll.Decision;
 import dll.Enemigo;
 import dll.Historia;
 import dll.Jugador;
@@ -17,58 +14,13 @@ import java.util.LinkedList;
 public class Main {
 
 	public static void main(String[] args) {
-		
-
-		/*
-		 * int opcion = 10;
-		Connection cnx = new Conexion().conectar();
-		Validador valid = new Validador();
-
-		Jugador jugador = new Jugador(0, "", "", 0, 1);
-
-		Personaje earth = new Personaje(null, "Earth", "¡Semillas de la Tierra, germinen!", "¡Ventiscas espirales de la Tierra!");
-		Aliado moon = new Aliado("Usagi", "Moon", "Tiara Lunar ¡Acción!", "¡Curación Lunar, Acción!", 3);
-		Aliado mercury = new Aliado("Ami", "Mercury", "¡Burbujas Congelantes de Mercurio, Estallen!", "¡Fulgor del Agua de Mercurio!", 3);
-		Aliado mars = new Aliado("Rei", "Mars", "¡Mandala Ardiente!", "¡Que los Demonios se Dispersen!", 3);
-		Aliado jupiter = new Aliado("Mako", "Jupiter", "¡Trueno de Júpiter, Resuena!", "¡Ataque de hojas de Roble de Júpiter!", 3);
-		Aliado venus = new Aliado("Mina", "Venus", "¡Rayo Creciente de Venus!", "¡Cadena del Amor de Venus!", 3);
-		
-		Enemigo ceres = new Enemigo("Sailor Ceres", "Ceres", "¡Rocas afiladas de Ceres, dispersaos!", "¡Ondas gravitacionales de Ceres!", 2, "Enemigo", 0);
-		Enemigo eris = new Enemigo("Sailor Eris", "Eris", "Estacas cristalinas de Eris, ¡congelad!", "¡Aurora Resplandeciente de Eris!", 2, "Enemigo", 0);
-		Enemigo humea = new Enemigo("Sailor Haumea", "Humea", "¡Ciclón perforador de Humea, devastación!", "¡Proyección astral de Humea!", 3, "Enemigo", 0);
-		Enemigo dmoon = new Enemigo("Nyx", "Dark Moon", "Eclipse anular, ¡manifiéstate!", "¡Ondas sonoras de la Luna Oscura!", 4, "Enemigo", 0);
-		*/
-		
-		//que condicion con trycatch para que no se cerre la pantalla 
 		MenuPrincipal menu = new MenuPrincipal();
 		menu.run();
-		
-		
-		
 
 	}
 	
 	public void campana(Jugador jugador, Validador valid, Personaje earth, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo ceres, Enemigo eris, Enemigo humea, Enemigo dmoon) {
 		Historia sm = new Historia(0);
-		Decision ds = new Decision(true);
-		Batalla bt = new Batalla(0);
-		
-		int opcion = 0;
-		String []confirmacion= {"Si", "No"};
-		
-		System.out.println("ID: " + jugador.getId());
-		System.out.println("NAME: " + jugador.getNombre());
-		System.out.println("GENDER: " + jugador.getGenero());
-		System.out.println("KARMA: " + jugador.getKarma());
-		System.out.println("CHECKPOINT: " + jugador.getProgreso());
-		System.out.println("☿: " + mercury.getAfinidad());
-		System.out.println("♂: " + mars.getAfinidad());
-		System.out.println("♃: " + jupiter.getAfinidad());
-		System.out.println("♀: " + venus.getAfinidad());
-		System.out.println("Ceres: S-" + ceres.getSalud() + " A-" + ceres.getConfianza() + " C-" + ceres.getCondicion());
-		System.out.println("Eris: S-" + eris.getSalud() + " A-" + eris.getConfianza() + " C-" + eris.getCondicion());
-		System.out.println("Humea: S-" + humea.getSalud() + " A-" + humea.getConfianza() + " C-" + humea.getCondicion());
-		System.out.println("Dark Moon: S-" + dmoon.getSalud() + " A-" + dmoon.getConfianza() + " C-" + dmoon.getCondicion());
 		
 		if (jugador.getProgreso()==1) {
 
@@ -294,22 +246,24 @@ public class Main {
 		Batalla bt = new Batalla(1);
 		int rondas = 4;
 		enemigo.setSalud(2);
-		String imgEnemigo = "", atk ="";
+		String imgEnemigo = "", atk ="", fondo = "bg_batalla.gif", tipo = "";
 		boolean ganador = false;
 		
 		if (enemigo.getPlaneta().equals("Ceres")) {
 			imgEnemigo = "ceres.png";
-			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Tierra.");
+			tipo = "Tierra.";
 		} else if (enemigo.getPlaneta().equals("Eris")) {
 			imgEnemigo = "eris.png";
-			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Hielo y Luz.");
+			tipo = "Hielo y Luz.";
 		} else if (enemigo.getPlaneta().equals("Humea")) {
 			imgEnemigo = "humea.png";
-			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Aire y Oscuridad.");
+			tipo = "Aire y Oscuridad.";
 		} else if (enemigo.getPlaneta().equals("Dark Moon")) {
-			imgEnemigo = "nyx.png";
-			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getPlaneta() + ".\n" + enemigo.getNombre() + " tiene poderes de tipo Fuego y Oscuridad.");
+			imgEnemigo = "nyx.png";	
+			tipo = "Fuego y Oscuridad.";
 		}
+		
+		JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getPlaneta() + ".\n" + enemigo.getNombre() + " tiene poderes de tipo " + tipo, "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
 		
 		do {
 			
@@ -318,15 +272,29 @@ public class Main {
 			while (atk.equals("none")) {
 			atk = bt.eligirAtaque(mercury, mars, jupiter, venus);
 			}
+			
+			String ctatk = enemigo.usarPoder((int) (Math.random() * 2));
+			
+			String[] array = bt.definirGanador(enemigo, ctatk, atk);
+			
+			String ronda = Integer.valueOf(rondas - 1).toString();
+			String salud = Integer.valueOf(enemigo.getSalud()).toString();
+			
+			String[] batalla = {
+					ronda, salud, array[0], array[1], atk, array[2], array[3], array[4], array[5], array[6], fondo, array[7]
+			};
+			
+			Combate combate = new Combate(batalla);
+			combate.run();
 
-		if (bt.definirGanador(enemigo, enemigo.usarPoder((int) (Math.random() * 2)), atk)) {
+		if (array[8].equals("gano")) {
 			enemigo.setSalud(enemigo.getSalud()-1);
-			rondas = rondas + 1;
 			
 			if (enemigo.getSalud()==1) {
 				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿¡Cómo te atreves!?", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
 			} else if (enemigo.getSalud()==0) {
 				ganador = true;
+				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿Cómo perdí contra ti...?", "Ganó la batalla", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
 				rondas = 0;
 			}
 			
@@ -346,10 +314,11 @@ public class Main {
 			}
 		}
 		
+		combate.close();
+		
 		} while (rondas>0);
 		
 		if (ganador) {
-			JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿Cómo perdí contra ti...?", "Ganó la batalla", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
 			
 			String []decision= {"Curar el enemigo" , "Derrotar el enemigo"};
 			String []respuestas= {"Sé que no querías hacer esto." , "Entiendo lo que hiciste y no te juzgaré por ello.", "Ya no hay nada que puedas hacer."};
@@ -384,29 +353,31 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "Perdiste la batalla contra " + enemigo.getNombre() + ". Ya no poderás curarla.");
 			
 		}
-
+	
 	}
 
 	public void batallaTutorial(Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo) {
 		Batalla bt = new Batalla(1);
 		int rondas = 4;
 		enemigo.setSalud(2);
-		String imgEnemigo = "", atk ="";
+		String imgEnemigo = "", atk ="", fondo = "bg_batalla.gif", tipo = "";
 		boolean ganador = false;
 		
 		if (enemigo.getPlaneta().equals("Ceres")) {
 			imgEnemigo = "ceres.png";
-			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Tierra.");
+			tipo = "Tierra.";
 		} else if (enemigo.getPlaneta().equals("Eris")) {
 			imgEnemigo = "eris.png";
-			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Hielo y Luz.");
+			tipo = "Hielo y Luz.";
 		} else if (enemigo.getPlaneta().equals("Humea")) {
 			imgEnemigo = "humea.png";
-			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getNombre() + ".\n" + enemigo.getPlaneta() + " tiene poderes de tipo Aire y Oscuridad.");
+			tipo = "Aire y Oscuridad.";
 		} else if (enemigo.getPlaneta().equals("Dark Moon")) {
-			imgEnemigo = "nyx.png";
-			JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getPlaneta() + ".\n" + enemigo.getNombre() + " tiene poderes de tipo Fuego y Oscuridad.");
+			imgEnemigo = "darkmoon.png";	
+			tipo = "Fuego y Oscuridad.";
 		}
+		
+		JOptionPane.showMessageDialog(null, "Batalla contra " + enemigo.getPlaneta() + ".\n" + enemigo.getNombre() + " tiene poderes de tipo " + tipo, "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
 		
 		do {
 			
@@ -415,42 +386,54 @@ public class Main {
 			while (atk.equals("none")) {
 			atk = bt.eligirAtaque(mercury, mars, jupiter, venus);
 			}
+			
+			String ctatk = enemigo.usarPoder((int) (Math.random() * 2));
+			
+			String[] array = bt.definirGanador(enemigo, ctatk, atk);
+			
+			String ronda = Integer.valueOf(rondas - 1).toString();
+			String salud = Integer.valueOf(enemigo.getSalud()).toString();
+			
+			String[] batalla = {
+					ronda, salud, array[0], array[1], atk, array[2], array[3], array[4], array[5], array[6], fondo, array[7]
+			};
+			
+			Combate combate = new Combate(batalla);
+			combate.run();
 
-		if (bt.definirGanador(enemigo, enemigo.usarPoder((int) (Math.random() * 2)), atk)) {
-			enemigo.setSalud(enemigo.getSalud()-1);
-			rondas = rondas + 1;
+			if (array[8].equals("gano")) {
+				enemigo.setSalud(enemigo.getSalud()-1);
+				
+				if (enemigo.getSalud()==1) {
+					JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿¡Cómo te atreves!?", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+				} else if (enemigo.getSalud()==0) {
+					ganador = true;
+					JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿Cómo perdí contra ti...?", "Ganó la batalla", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+					rondas = 0;
+				}
 			
-			if (enemigo.getSalud()==1) {
-				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿¡Cómo te atreves!?", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
-			} else if (enemigo.getSalud()==0) {
-				ganador = true;
-				rondas = 0;
+			} else {
+				if (rondas==4) {
+					JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿Eso es todo lo que puedes hacer?", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+					rondas = rondas - 1;
+				} else if (rondas==3) {
+					JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¡Eres patético!", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+					rondas = rondas - 1;
+				} else if (rondas==2) {
+					JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": Me estoy aburriendo...", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+					rondas = rondas - 1;
+				} else if (rondas==1) {
+					JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": Basta. Ya me cansé.", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
+					rondas = rondas - 1;
+				}
 			}
 			
-		} else {
-			if (rondas==4) {
-				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿Eso es todo lo que puedes hacer?", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
-				rondas = rondas - 1;
-			} else if (rondas==3) {
-				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¡Eres patético!", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
-				rondas = rondas - 1;
-			} else if (rondas==2) {
-				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": No puedes contra mí.", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
-				rondas = rondas - 1;
-			} else if (rondas==1) {
-				JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": Basta. Ya me cansé.", "Diálogo", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
-				rondas = rondas - 1;
-			}
-		}
+			combate.close();
 		
 		} while (rondas>0);
 		
-		if (ganador) {
-			JOptionPane.showMessageDialog(null, enemigo.getNombre() + ": ¿Cómo perdí contra ti...?", "Ganó la batalla", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Main.class.getResource(imgEnemigo)));
-			
-		} else {
-			JOptionPane.showMessageDialog(null, "Perdiste la batalla contra " + enemigo.getNombre() + ".");
-			
+		if (ganador==false) {
+			JOptionPane.showMessageDialog(null, "Perdiste la batalla contra " + enemigo.getNombre() + ".");	
 		}
 
 	}

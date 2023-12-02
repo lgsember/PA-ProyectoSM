@@ -91,6 +91,13 @@ public class Decision {
 	
 	public boolean Decision3(Jugador jugador) {
 		String[] respuesta = {"Busca alguna manera de ayudar.", "Mejor no involucrarse, no hay nada que hacer."};
+		String icon = "";
+		
+		if (jugador.getGenero().equals("Male")) {
+			icon = "playerm.png";
+		} else {
+			icon = "playerf.png";
+		}
 		
 		 int opcion = JOptionPane.showOptionDialog(
 		            null,
@@ -98,7 +105,7 @@ public class Decision {
 		            "Decision",
 		            JOptionPane.DEFAULT_OPTION,
 		            JOptionPane.PLAIN_MESSAGE,
-		            null,
+		            new ImageIcon(Batalla.class.getResource(icon)),
 		            respuesta,
 		            respuesta[0]
 		        );

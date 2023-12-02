@@ -38,7 +38,6 @@ public class Dialogo extends JFrame {
 
 			public void run() {
 				try {
-					//Dialogo frame = new Dialogo(matriz);
 					this.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

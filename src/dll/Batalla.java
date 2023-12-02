@@ -24,20 +24,12 @@ public class Batalla {
 	public String toString() {
 		return "Batalla [id=" + id + "]";
 	}
-	/*
-	public void tutorial(Personaje earth, Jugador jugador, Aliado moon, Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus, Enemigo enemigo, boolean victoria) {
-		if (victoria) {
-			JOptionPane.showMessageDialog(null, "Luna: Su elección fue satisfactoria, por lo que pudiste atacar al enemigo.\nEsto lo debilita, haciendo más fácil derrotarlo o salvarlo.", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("luna.png")));
-			JOptionPane.showMessageDialog(null, "Tuxedo Mask:\nEs el fin.", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("tmask.png")));
-			JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\nTienes razón. Es el fin,\npero no para mí.", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("darkmoon.png")));			
-		} else {
-			JOptionPane.showMessageDialog(null, "Luna: Su elección no fue satisfactoria, por lo que no pudiste atacar al enemigo.\nAnaliza al enemigo y el poder de cada Sailor Guerrera\npara tomar la mejor decisión y debilitar al enemigo.", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("luna.png")));
-			JOptionPane.showMessageDialog(null, enemigo.getNombre() + ":\nAhora es demasiado tarde...", "Karma: " + jugador.getKarma() + " | Afinidad: ☿" + mercury.getAfinidad() + " ♂" + mars.getAfinidad() + " ♃" + jupiter.getAfinidad() + " ♀" + venus.getAfinidad(),  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource("darkmoon.png")));
-		}
-	}*/
+
+	ImageIcon select = new ImageIcon(Batalla.class.getResource("selection.png"));
 	
 	public String eligirAtaque(Aliado mercury, Aliado mars, Aliado jupiter, Aliado venus) {
 		String[] respuesta = {"Sailor Mercury", "Sailor Mars", "Sailor Jupiter", "Sailor Venus"};
+		String icon = "";
 		int poder;
 		Aliado aliado = null;
 
@@ -47,29 +39,34 @@ public class Batalla {
 		            "Batalla",
 		            JOptionPane.DEFAULT_OPTION,
 		            JOptionPane.PLAIN_MESSAGE,
-		            null,
+		            select,
 		            respuesta,
 		            respuesta[0]
 		        );
 
 		 if (opcion == 0) {
 			aliado = mercury;
+			icon = "mercfight.png";
 		} else if (opcion == 1) {
 			aliado = mars;
+			icon = "marsfight.png";
 		} else if (opcion == 2) {
 			aliado = jupiter;
+			icon = "jupfight.png";
 		} else {
 			aliado = venus;
+			icon = "venusfight.png";
 		} 
 		 
 		 String[] poderes = {aliado.getPoder1(), aliado.getPoder2(), "Eligir otra Sailor"};
-			poder = JOptionPane.showOptionDialog(
+		 
+		 poder = JOptionPane.showOptionDialog(
 		            null,
 		           "¿Que poder quieres usar?",
 		            "Batalla",
 		            JOptionPane.DEFAULT_OPTION,
 		            JOptionPane.PLAIN_MESSAGE,
-		            null,
+		            new ImageIcon(Batalla.class.getResource(icon)),
 		            poderes,
 		            poderes[0]
 		        );
@@ -81,54 +78,98 @@ public class Batalla {
 			}	
 	}
 	
-	public boolean definirGanador(Enemigo enemigo, String atke, String atka) {
+	public String[] definirGanador(Enemigo enemigo, String atke, String atka) {
 		int luz = 1, oscuridad = 2, normal = 3, agua = 4, fuego = 5, tierra = 6, aire = 7, planta = 8, eletricidad = 9, hielo = 10, atkaliado = 0, atkenemigo = 0;
-		String animacionAliado = "", animacionEnemigo = "";
+		String aliado = "", imgAliado = "", imgEnemigo = "", tipoAtka = "", tipoAtcke = "", resolucion = "", resultado = "";
 		
 		if (atka.equals("¡Burbujas Congelantes de Mercurio, Estallen!")) {
-			animacionAliado = "mercatk1.png";
+			imgAliado = "mercatk1.png";
+			tipoAtka = "Hielo";
+			aliado = "Sailor Mercury";
 		} else if (atka.equals("¡Fulgor del Agua de Mercurio!")) {
-			animacionAliado = "mercatk2.png";
+			imgAliado = "mercatk2.png";
+			tipoAtka = "Agua";
+			aliado = "Sailor Mercury";
 		} else if (atka.equals("¡Mandala Ardiente!")) {
-			animacionAliado = "marsatk1.png";
+			imgAliado = "marsatk1.png";
+			tipoAtka = "Fuego";
+			aliado = "Sailor Mars";
 		} else if (atka.equals("¡Que los Demonios se Dispersen!")) {
-			animacionAliado = "marsatk2.png";
+			imgAliado = "marsatk2.png";
+			tipoAtka = "Luz";
+			aliado = "Sailor Mars";
 		} else if (atka.equals("¡Trueno de Júpiter, Resuena!")) {
-			animacionAliado = "jupatk1.png";
+			imgAliado = "jupatk1.png";
+			tipoAtka = "Eletricidad";
+			aliado = "Sailor Jupiter";
 		} else if (atka.equals("¡Ataque de hojas de Roble de Júpiter!")) {
-			animacionAliado = "jupatk2.png";
+			imgAliado = "jupatk2.png";
+			tipoAtka = "Planta";
+			aliado = "Sailor Jupiter";
 		} else if (atka.equals("¡Rayo Creciente de Venus!")) {
-			animacionAliado = "venusatk1.png";
+			imgAliado = "venusatk1.png";
+			tipoAtka = "Luz";
+			aliado = "Sailor Venus";
 		} else if (atka.equals("¡Cadena del Amor de Venus!")) {
-			animacionAliado = "venusatk2.png";
+			imgAliado = "venusatk2.png";
+			tipoAtka = "Normal";
+			aliado = "Sailor Venus";
+		}
+		
+		if (atke.equals("Eclipse anular, ¡manifiéstate!")) {
+			tipoAtcke = "Fuego";
+		} else if (atke.equals("¡Ondas sonoras de la Luna Oscura!")) {
+			tipoAtcke = "Oscuridad";
+		} else if (atke.equals("¡Rocas afiladas de Ceres, dispersaos!")) {
+			tipoAtcke = "Tierra";
+		} else if (atke.equals("¡Ondas gravitacionales de Ceres!")) {
+			tipoAtcke = "Tierra";
+		} else if (atke.equals("Estacas cristalinas de Eris, ¡congelad!")) {
+			tipoAtcke = "Hielo";
+		} else if (atke.equals("¡Aurora Resplandeciente de Eris!")) {
+			tipoAtcke = "Luz";
+		} else if (atke.equals("¡Ciclón perforador de Humea, devastación!")) {
+			tipoAtcke = "Aire";
+		} else if (atke.equals("¡Proyección astral de Humea!")) {
+			tipoAtcke = "Oscuridad";
 		}
 		
 		if (enemigo.getPlaneta().equals("Dark Moon")) {
-			animacionEnemigo = "dmoonfight.png";
+			imgEnemigo = "dmoonfight.png";
 		} else if (enemigo.getPlaneta().equals("Ceres")) {
-			animacionEnemigo = "ceresfight.png";
+			imgEnemigo = "ceresfight.png";
 		} else if (enemigo.getPlaneta().equals("Eris")) {
-			animacionEnemigo = "erisfight.png"; 
+			imgEnemigo = "erisfight.png"; 
 		} else if (enemigo.getPlaneta().equals("Humea")) {
-			animacionEnemigo = "humeafight.png"; 
+			imgEnemigo = "humeafight.png"; 
 		}
 		
-		JOptionPane.showMessageDialog(null, atka, "Tu aliado ataca con:", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource(animacionAliado)));
-		JOptionPane.showMessageDialog(null, atke, "El enemigo contra ataca con:", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource(animacionEnemigo)));
+		//JOptionPane.showMessageDialog(null, atka, "Tu aliado ataca con:", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource(imgAliado)));
+		//JOptionPane.showMessageDialog(null, atke, "El enemigo contra ataca con:", JOptionPane.PLAIN_MESSAGE, new ImageIcon(Decision.class.getResource(imgEnemigo)));
 		
 		atkaliado = this.cargarPoderAliado(atka);
 		atkenemigo = this.cargarPoderEnemigo(atke);
 		
 		if (atkaliado==normal && atkenemigo==luz || atkaliado==luz && atkenemigo==oscuridad || atkaliado==luz && atkenemigo==aire || atkaliado==agua && atkenemigo==tierra || atkaliado==agua && atkenemigo==fuego || atkaliado==hielo && atkenemigo==aire || atkaliado==hielo && atkenemigo==planta || atkaliado==hielo && atkenemigo==agua || atkaliado==fuego && atkenemigo==planta || atkaliado==fuego && atkenemigo==hielo || atkaliado==fuego && atkenemigo==oscuridad || atkaliado==eletricidad && atkenemigo==aire || atkaliado==eletricidad && atkenemigo==agua || atkaliado==eletricidad && atkenemigo==oscuridad || atkaliado==planta && atkenemigo==tierra || atkaliado==planta && atkenemigo==eletricidad || atkaliado==tierra && atkenemigo==fuego || atkaliado==tierra && atkenemigo==eletricidad || atkaliado==tierra && atkenemigo==luz || atkaliado==aire && atkenemigo==fuego || atkaliado==aire && atkenemigo==tierra || atkaliado==oscuridad && atkenemigo==normal || atkaliado==oscuridad && atkenemigo==tierra || atkaliado==oscuridad && atkenemigo==planta) {
-			JOptionPane.showMessageDialog(null, "El poder de tu aliado se mostró más fuerte.");
-			return true;
+			resolucion = "El poder de tu aliado se mostró más fuerte.";
+			resultado = "gano";
+			//JOptionPane.showMessageDialog(null, "El poder de tu aliado se mostró más fuerte.");
 		} else if(atkenemigo==normal && atkaliado==luz || atkenemigo==luz && atkaliado==oscuridad || atkenemigo==luz && atkaliado==aire || atkenemigo==agua && atkaliado==tierra || atkenemigo==agua && atkaliado==fuego || atkenemigo==hielo && atkaliado==aire || atkenemigo==hielo && atkaliado==planta || atkenemigo==hielo && atkaliado==agua || atkenemigo==fuego && atkaliado==planta || atkenemigo==fuego && atkaliado==hielo || atkenemigo==fuego && atkaliado==oscuridad || atkenemigo==eletricidad && atkaliado==aire || atkenemigo==eletricidad && atkaliado==agua || atkenemigo==eletricidad && atkaliado==oscuridad || atkenemigo==planta && atkaliado==tierra || atkenemigo==planta && atkaliado==eletricidad || atkenemigo==tierra && atkaliado==fuego || atkenemigo==tierra && atkaliado==eletricidad || atkenemigo==tierra && atkaliado==luz || atkenemigo==aire && atkaliado==fuego || atkenemigo==aire && atkaliado==tierra || atkenemigo==oscuridad && atkaliado==normal || atkenemigo==oscuridad && atkaliado==tierra || atkenemigo==oscuridad && atkaliado==planta) {
-			JOptionPane.showMessageDialog(null, "El poder del enemigo superó tu aliado.");
-			return false;
+			//JOptionPane.showMessageDialog(null, "El poder del enemigo superó tu aliado.");
+			resolucion = "El poder del enemigo superó tu aliado.";
+			resultado = "perdio";
 		} else {
-			JOptionPane.showMessageDialog(null, "Los poderes se anularon.");
-			return false;
+			//JOptionPane.showMessageDialog(null, "Los poderes se anularon.");
+			resultado = "empate";
+			resolucion = "Los poderes se anularon.";
 		}
+
+		 String[] array = {
+				aliado, enemigo.getNombre(), tipoAtka, imgAliado, atke, tipoAtcke, imgEnemigo, resolucion, resultado
+		};
+		 
+		 return array;
+
 	}
 	
 	private int cargarPoderAliado(String aliado) {

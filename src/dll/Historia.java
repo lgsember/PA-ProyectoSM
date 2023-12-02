@@ -43,8 +43,7 @@ public class Historia {
 		    String linea = matriz[i][1];
 		    String img = matriz[i][3];
 		JOptionPane.showMessageDialog(null, linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
-		}*/
-		
+		}*/	
 		
 		return matriz;
 	}
@@ -79,8 +78,7 @@ public class Historia {
 		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}*/
-		
-		
+
 		return matriz;
 	}
 	
@@ -107,8 +105,7 @@ public class Historia {
 		    String img = matriz[i][2];
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}*/
-		
-		
+
 		return matriz;
 	}
 	
@@ -241,6 +238,7 @@ public class Historia {
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
 		*/
+		
 		return matriz;
 	}
 	
@@ -297,6 +295,7 @@ public class Historia {
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
 		*/
+		
 		return matriz;
 	}
 	
@@ -324,6 +323,7 @@ public class Historia {
 		JOptionPane.showMessageDialog(null, persona + linea, status,  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
 		*/
+		
 		return matriz;
 	}
 	
@@ -357,8 +357,6 @@ public class Historia {
 			nomMax = venus.getNombre();
 		}
 		
-		//controlar os empates
-		
 		String image = nomMax + ".png";
 		
 		
@@ -373,15 +371,8 @@ public class Historia {
 		JOptionPane.showMessageDialog(null, persona + linea, "Fin de la Demo",  JOptionPane.PLAIN_MESSAGE, new ImageIcon(Historia.class.getResource(img)));
 		}
 		 */
-		//"Sailor Moon: Battle for Earth ¡Próximamente!"
+
 		return matriz;
 	}
-
-	/*
-	 * String[][] matriz = {
-			    {"Minako: ", "Mucho gusto, " + jugador.getNombre() + ". Yo soy Minako, pero puedes llamarme Mina. Esta es Makoto.", "Mina.png", "yoyogi.jpg", status},
-			    {"Makoto: ", linea1, "Mako.png", "yoyogi.jpg", status}
-			};
-	 */
 
 }

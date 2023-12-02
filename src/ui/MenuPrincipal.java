@@ -130,6 +130,7 @@ public class MenuPrincipal extends JFrame {
         btnBatalla.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	dispose();
             	Enemigo enemigo = null;
 				int random = (int)(Math.random()*4);
 				if (random==0) {
@@ -141,6 +142,7 @@ public class MenuPrincipal extends JFrame {
 				} else {
 					enemigo = dmoon;
 				}
+				
 				main.modoBatalla(mercury, mars, jupiter, venus, enemigo);
             }
         });
